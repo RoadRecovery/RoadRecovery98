@@ -6,8 +6,11 @@
 #define ROADRECOVERY98_NODESOURCE_H
 
 
-class NodeSource {
-
+enum NodeSource {
+  IDENTIFY,
+  ADD,
+  MODIFY,
+  DELETE
 };
 
 

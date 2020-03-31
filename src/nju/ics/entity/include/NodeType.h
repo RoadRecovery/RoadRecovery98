@@ -6,8 +6,11 @@
 #define ROADRECOVERY98_NODETYPE_H
 
 
-class NodeType {
-
+enum NodeType {
+  NORMALPORTAL,
+  PROVINCIALPORTAL,
+  UNUSED,
+  TOLLSTATION
 };
 
 
