@@ -5,14 +5,17 @@
 #ifndef ROADRECOVERY98_PATH_H
 #define ROADRECOVERY98_PATH_H
 
-#include <list>
 #include "Node.h"
+#include <vector>
 
 class Path {
 
 public:
-  std::list<Node> & nodeList;
+  std::vector<Node> &nodeVector;
 
+  Path(std::vector<Node> &nodeList);
+
+  long getLength();
 
 };
 

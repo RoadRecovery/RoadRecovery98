@@ -22,12 +22,7 @@ public:
   //constructor without arguments, DO I really need default constructor?
 
   //copy a node element except for source
-  Node(const std::string& index, const std::string& name, NodeType type, Node*mutualNodePtr) {
-    this->index = index;
-    this->name = name;
-    this->type = type;
-    this->mutualNodePtr = mutualNodePtr;
-  }
+  Node(const std::string& index, const std::string& name, NodeType type, Node* mutualNodePtr);
 
   //define equals function as that in Java, using operator==
   friend bool operator==(Node& lhs, Node& rhs);
@@ -35,7 +30,6 @@ public:
   //TODO: define clone as that in Java ???
 };
 
-bool operator==(Node &lhs, Node &rhs) { return lhs.index == rhs.index; }
 
 
 #endif //ROADRECOVERY98_NODE_H

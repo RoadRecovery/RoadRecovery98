@@ -15,9 +15,4 @@ public:
   friend bool operator==(Edge & lhs, Edge & rhs);
 };
 
-bool operator==(Edge & lhs, Edge & rhs) {
-  return lhs.inNode == rhs.inNode && lhs.outNode == rhs.outNode;
-}
-
-
 #endif //ROADRECOVERY98_EDGE_H
