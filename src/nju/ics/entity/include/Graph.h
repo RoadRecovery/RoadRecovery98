@@ -16,6 +16,8 @@ public:
   std::vector<Edge> edgeVector;
 
   Graph();
+
+  //TODO: pre-process the shortest path in the graph
 };
 
 
