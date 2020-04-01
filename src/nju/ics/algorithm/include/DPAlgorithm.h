@@ -11,7 +11,7 @@ class DPAlgorithm : public Algorithm {
 
 public:
 
-  virtual RuntimePath & execute(Graph & graph, RuntimePath & runtimePath, std::vector<double> & configs);
+  virtual RuntimePath execute(Graph & graph, RuntimePath & runtimePath, std::vector<double> & configs);
 };
 
 
