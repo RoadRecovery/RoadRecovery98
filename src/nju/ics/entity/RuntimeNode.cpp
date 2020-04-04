@@ -4,7 +4,7 @@
 
 #include "include/RuntimeNode.h"
 
-RuntimeNode::RuntimeNode(Node & node, const std::string & transTime)
+RuntimeNode::RuntimeNode(Node & node, std::string & transTime)
 :node(node), transTime(transTime) {
 }
 

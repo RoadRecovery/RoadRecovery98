@@ -10,9 +10,9 @@ class RuntimeNode {
 
 public:
   Node& node;
-  const std::string & transTime;
+  std::string & transTime;
 
-  RuntimeNode(Node &node, const std::string &transTime);
+  RuntimeNode(Node &node, std::string &transTime);
 
   friend bool operator==(RuntimeNode & lhs, RuntimeNode & rhs);
 

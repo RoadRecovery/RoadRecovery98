@@ -22,9 +22,9 @@ public:
 
   //TODO: getLiteralPath()
 
-  //TODO: print(string desc)
+  void print(std::string desc);
 
-  //TODO: add(RuntimePath path2)
+  void add(RuntimePath path2);
 
 };
 

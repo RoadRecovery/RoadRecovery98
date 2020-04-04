@@ -7,6 +7,7 @@
 
 #include "Edge.h"
 #include "Node.h"
+#include "Path.h"
 #include <vector>
 class Graph {
 
@@ -16,6 +17,9 @@ public:
   std::vector<Edge> edgeVector;
 
   Graph();
+
+  Path getShortestPath(Node, Node);
+  void buildAllShortestPath();
 
   //TODO: pre-process the shortest path in the graph
 };
