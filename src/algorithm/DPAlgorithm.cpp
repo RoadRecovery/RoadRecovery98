@@ -2,7 +2,7 @@
 // Created by lida on 2020/3/31.
 //
 
-#include "include/DPAlgorithm.h"
+#include "DPAlgorithm.h"
 
 RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
                                  std::vector<double> &configs) {

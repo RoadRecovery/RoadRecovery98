@@ -20,6 +20,7 @@ public:
   long mileage;
 
   //constructor without arguments, DO I really need default constructor?
+  Node();
 
   //copy a node element except for source
   Node(const std::string& index, const std::string& name, NodeType type, Node* mutualNodePtr);

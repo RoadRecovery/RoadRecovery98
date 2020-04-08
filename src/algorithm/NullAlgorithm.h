@@ -5,8 +5,8 @@
 #ifndef ROADRECOVERY98_NULLALGORITHM_H
 #define ROADRECOVERY98_NULLALGORITHM_H
 
-#include "../../entity/include/Graph.h"
-#include "../../entity/include/RuntimePath.h"
+#include "../entity/Graph.h"
+#include "../entity/RuntimePath.h"
 class NullAlgorithm {
 
 public:

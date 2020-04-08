@@ -5,8 +5,8 @@
 #ifndef ROADRECOVERY98_ALGORITHM_H
 #define ROADRECOVERY98_ALGORITHM_H
 
-#include "../../entity/include/Graph.h"
-#include "../../entity/include/RuntimePath.h"
+#include "../entity/Graph.h"
+#include "../entity/RuntimePath.h"
 class Algorithm {
 
 public:

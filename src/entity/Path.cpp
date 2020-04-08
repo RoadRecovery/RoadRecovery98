@@ -2,7 +2,7 @@
 // Created by lida on 2020/3/31.
 //
 
-#include "include/Path.h"
+#include "Path.h"
 
 Path::Path(std::vector<Node> &nodeList) : nodeVector(nodeList) {}
 

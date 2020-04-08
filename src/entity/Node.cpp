@@ -2,7 +2,7 @@
 // Created by lida on 2020/4/1.
 //
 
-#include "include/Node.h"
+#include "Node.h"
 
 Node::Node(const std::string &index, const std::string &name, NodeType type,
            Node *mutualNodePtr) {
@@ -13,5 +13,8 @@ Node::Node(const std::string &index, const std::string &name, NodeType type,
 }
 
 bool operator==(Node &lhs, Node &rhs) { return lhs.index == rhs.index; }
+
+Node::Node() {
+}
 
 

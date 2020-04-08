@@ -2,7 +2,7 @@
 // Created by lida on 2020/3/31.
 //
 
-#include "include/RuntimeNode.h"
+#include "RuntimeNode.h"
 
 RuntimeNode::RuntimeNode(Node & node, std::string & transTime)
 :node(node), transTime(transTime) {
