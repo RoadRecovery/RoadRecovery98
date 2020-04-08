@@ -30,8 +30,10 @@ RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
 	for (int i = 0; i < originalPathSize; ++i) {
 		for (int j = i; j < originalPathSize; ++j) {
 			distanceFromDeletedNodesToIJ[i][j] =
-					j - i <= 1 ? 0 : distanceFromNodesToNodes(graph, originalPath.runtimeNodeVector, i, j);
-			if (debug) printf("distance delete %d %d: %f\n", i, j, distanceFromDeletedNodesToIJ[i][j]);
+					j - i <= 1 ? 0 : distanceFromNodesToNodes(graph,
+					        originalPath.runtimeNodeVector, i, j);
+			if (debug) printf("distance delete %d %d: %f\n", i, j,
+			        distanceFromDeletedNodesToIJ[i][j]);
 		}
 	}
 
@@ -48,7 +50,8 @@ RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
 				nodeI.transTime.clear();
 			}
 
-			dpPath[i][flagI].runtimeNodeVector.push_back(*new RuntimeNode(nodeI.node, nodeI.transTime));
+			dpPath[i][flagI].runtimeNodeVector.push_back(
+			        *new RuntimeNode(nodeI.node, nodeI.transTime));
 			dpPath[i][flagI].runtimeNodeVector.front().node.source = IDENTIFY;
 			for (int flagJ = 0; flagJ <= 1; ++flagJ) {
 				for (int j = i - 1; j >= 0; --j) {

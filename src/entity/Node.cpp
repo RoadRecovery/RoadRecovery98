@@ -12,7 +12,7 @@ Node::Node(const std::string &index, const std::string &name, NodeType type,
   this->mutualNodePtr = mutualNodePtr;
 }
 
-bool operator==(Node &lhs, Node &rhs) { return lhs.index == rhs.index; }
+bool operator==(const Node &lhs, const Node &rhs) { return lhs.index == rhs.index; }
 
 Node::Node() {
 }

@@ -18,7 +18,7 @@ public:
 
   Graph();
 
-  Path getShortestPath(Node, Node);
+  Path getShortestPath(const Node &, const Node &);
 
   //pre-process the shortest path in the graph
   void buildAllShortestPath();

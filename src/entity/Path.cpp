@@ -4,7 +4,7 @@
 
 #include "Path.h"
 
-Path::Path(std::vector<Node> &nodeList) : nodeVector(nodeList) {}
+Path::Path(std::vector<Node> &nodeVector) : nodeVector(nodeVector) {}
 
 long Path::getLength() {
   long length = 0;
@@ -13,3 +13,6 @@ long Path::getLength() {
   }
   return length;
 }
+
+
+

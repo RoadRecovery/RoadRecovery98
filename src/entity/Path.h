@@ -11,7 +11,8 @@
 class Path {
 
 public:
-  std::vector<Node> &nodeVector;
+
+  std::vector<Node> & nodeVector;
 
   Path(std::vector<Node> &nodeList);
 

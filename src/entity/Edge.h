@@ -12,7 +12,7 @@ public:
   Node& outNode;
 
   //define {equals in Java}
-  friend bool operator==(Edge & lhs, Edge & rhs);
+  friend bool operator==(const Edge & lhs, const Edge & rhs);
 };
 
 #endif //ROADRECOVERY98_EDGE_H

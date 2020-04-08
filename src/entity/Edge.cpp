@@ -5,6 +5,6 @@
 #include "Edge.h"
 
 //reference must not refer to an empty object!!!
-bool operator==(Edge & lhs, Edge & rhs) {
+bool operator==(const Edge & lhs, const Edge & rhs) {
   return lhs.inNode == rhs.inNode && lhs.outNode == rhs.outNode;
 }

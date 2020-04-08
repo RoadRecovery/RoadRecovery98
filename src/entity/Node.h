@@ -26,7 +26,7 @@ public:
   Node(const std::string& index, const std::string& name, NodeType type, Node* mutualNodePtr);
 
   //define equals function as that in Java, using operator==
-  friend bool operator==(Node& lhs, Node& rhs);
+  friend bool operator==(const Node& lhs, const Node& rhs);
 
   //TODO: clone?
 };
