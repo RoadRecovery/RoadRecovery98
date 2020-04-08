@@ -9,8 +9,8 @@ RuntimePath::RuntimePath() {}
 
 RuntimePath::RuntimePath(Path& path, RuntimeNode & startRuntimeNode, RuntimeNode & endRuntimeNode)
 :runtimeNodeVector(std::vector<RuntimeNode>()) {
-  for (int i = 0; i < path.nodeVector.size(); ++i) {
-    Node & node = path.nodeVector[i];
+  for (int i = 0; i < path.nodeVector->size(); ++i) {
+    Node & node = path.nodeVector->at(i);
     std::string transTime = std::string();
     if (node == startRuntimeNode.node) transTime = startRuntimeNode.transTime;
     if (node == endRuntimeNode.node)   transTime = endRuntimeNode.transTime;

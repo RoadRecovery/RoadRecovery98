@@ -64,7 +64,7 @@ RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
 					}
 					// shortest path from nodeJ to nodeI
 					Path shortestPath = graph.getShortestPath(nodeJ.node, nodeI.node);
-					if (shortestPath.nodeVector.empty()) continue;
+					if (shortestPath.nodeVector->empty()) continue;
 					RuntimePath runtimeShortestPath = *new RuntimePath(shortestPath, nodeJ, nodeI);
 					if (!(nodeI.node == nodeJ.node)
 							|| (flagI == 1 && flagJ == 1)) { // When i == j and has one IDENTIFY, then IDENTIFY
@@ -137,16 +137,16 @@ double distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode> nodeVecto
 		long dis = -1;
 		RuntimeNode nodeK = nodeVector.at(k);
 		Path path = graph.getShortestPath(nodeI.node, nodeK.node);
-		if (!path.nodeVector.empty()) dis = path.getLength();
+		if (!path.nodeVector->empty()) dis = path.getLength();
 		path = graph.getShortestPath(nodeK.node, nodeJ.node);
-		if (!path.nodeVector.empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
+		if (!path.nodeVector->empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
 		if (nodeK.node.mutualNodePtr != NULL) {
 			nodeK.node = *nodeK.node.mutualNodePtr;
 			nodeK.transTime.clear();
 			path = graph.getShortestPath(nodeI.node, nodeK.node);
-			if (!path.nodeVector.empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
+			if (!path.nodeVector->empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
 			path = graph.getShortestPath(nodeK.node, nodeJ.node);
-			if (!path.nodeVector.empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
+			if (!path.nodeVector->empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
 		}
 		ret += dis;
 	}

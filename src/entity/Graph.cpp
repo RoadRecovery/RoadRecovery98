@@ -18,8 +18,8 @@ struct NodeDijkstra {
 
 Path Graph::getShortestPath(const Node&, const Node&) {
     //FIXME: I just return a nonsense path.
-    std::vector<Node> vector;
-    vector.push_back(Node());
+    std::vector<Node> * vector;
+    vector->push_back(Node());
     return Path(vector);
 }
 
