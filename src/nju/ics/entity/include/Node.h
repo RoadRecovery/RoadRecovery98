@@ -27,7 +27,7 @@ public:
   //define equals function as that in Java, using operator==
   friend bool operator==(Node& lhs, Node& rhs);
 
-  //TODO: define clone as that in Java ???
+  //TODO: clone?
 };
 
 

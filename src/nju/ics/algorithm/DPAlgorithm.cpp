@@ -6,7 +6,7 @@
 
 RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
                                  std::vector<double> &configs) {
-	//TODO: implement the DP core logic.
+	//implement the DP core logic.
 	double modifyCost = configs.at(0); //0.01
 	double addCost = configs.at(1); //0.1
 	double deleteCost = configs.at(2); //4000
@@ -31,7 +31,7 @@ RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
 		for (int j = i; j < originalPathSize; ++j) {
 			distanceFromDeletedNodesToIJ[i][j] =
 					j - i <= 1 ? 0 : distanceFromNodesToNodes(graph, originalPath.runtimeNodeVector, i, j);
-			if (debug) printf("distance delete %d %d: %d\n", i, j, distanceFromDeletedNodesToIJ[i][j]);
+			if (debug) printf("distance delete %d %d: %f\n", i, j, distanceFromDeletedNodesToIJ[i][j]);
 		}
 	}
 

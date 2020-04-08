@@ -19,9 +19,10 @@ public:
   Graph();
 
   Path getShortestPath(Node, Node);
+
+  //pre-process the shortest path in the graph
   void buildAllShortestPath();
 
-  //TODO: pre-process the shortest path in the graph
 };
 
 

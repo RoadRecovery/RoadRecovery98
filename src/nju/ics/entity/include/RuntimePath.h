@@ -20,8 +20,6 @@ public:
 
   long getLength();
 
-  //TODO: getLiteralPath()
-
   void print(std::string desc);
 
   void add(RuntimePath path2);
