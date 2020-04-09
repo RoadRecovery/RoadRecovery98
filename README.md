@@ -1,11 +1,11 @@
 # RoadRecovery98
 
-- This C++ project should correctly run on two platforms, Linux (gcc 4.8.5) and Windows (VS2008 and QT).
+- This C++ project should correctly run on two platforms, Linux (gcc 4.8.5) and Windows (mscv(VS2008) and mingw(QT)).
 
 ## TODO List
 
 - Read from csv files, rather than Excel files
 
-- test framework
+- googletest C++ framework for unit tests and integration tests
 
   

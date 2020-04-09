@@ -36,12 +36,11 @@ void ReadExcel::readFromCSVFile(const std::string &dir, const std::string &fileN
         }
         else firstLine = false;
     }
-
 }
 
 void ReadExcel::addEdgeFromLine(std::string lineStr, int flag) {
     //TODO:
-    std::cout << lineStr << std::endl;
+
 }
 
 
