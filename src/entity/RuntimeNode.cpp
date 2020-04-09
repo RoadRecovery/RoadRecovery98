@@ -9,7 +9,7 @@ RuntimeNode::RuntimeNode(Node & node, std::string & transTime)
 :node(node), transTime(transTime) {
 }
 
-bool operator==(RuntimeNode & lhs, RuntimeNode & rhs) {
+bool operator==(const RuntimeNode & lhs, const RuntimeNode & rhs) {
   return lhs.node == rhs.node;
 }
 

@@ -8,11 +8,15 @@
 PathRestoration::PathRestoration( std::string &enStationId,  std::string &exStationId,
                                   std::string &enTime,  std::string &exTime,
                                   std::string &basicDataPath,
-                                 const std::vector<std::pair<std::string, std::string> > & gantryIdList):
+                                  double addCost,double deleteCost,double deleteCost2,double modifyCost,
+                                  double deleteEndCost,
+                                 const std::vector<std::pair<std::string, std::string> > & gantryInputs):
         enStationId(enStationId), exStationId(exStationId),
         enTime(enTime), exTime(exTime),
         basicDataPath(basicDataPath),
-        gantryInputs(gantryIdList){
+        addCost(addCost), deleteCost(deleteCost), deleteCost2(deleteCost2), modifyCost(modifyCost),
+        deleteEndCost(deleteEndCost),
+        gantryInputs(gantryInputs){
 }
 
 int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, std::string> > & gantryOutputs) {
@@ -58,8 +62,9 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
 
 
     //TODO: core functionality @Fancy
-    DPAlgorithm algorithm = DPAlgorithm();
-    RuntimePath retRuntimePath = algorithm.execute(readExcel.graph, runtimePath, configs);
+//    DPAlgorithm algorithm = DPAlgorithm();
+//    RuntimePath retRuntimePath = algorithm.execute(readExcel.graph, runtimePath, configs);
+    RuntimePath retRuntimePath = RuntimePath();
 
     //TODO: dump into gantry outputs
     for (std::vector<RuntimeNode>::const_iterator iter = retRuntimePath.runtimeNodeVector->begin();

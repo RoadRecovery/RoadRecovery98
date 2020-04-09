@@ -34,7 +34,8 @@ public:
      std::string & enTime,
      std::string & exTime,
      std::string & basicDataPath,
-    const std::vector<std::pair<std::string, std::string> > & gantryIdList);
+     double addCost,double deleteCost,double deleteCost2,double modifyCost,double deleteEndCost,
+    const std::vector<std::pair<std::string, std::string> > & gantryInputs);
 
     int pathRestorationMethod(std::vector<std::pair<std::string, std::string> > & gantryOutputs);
 
