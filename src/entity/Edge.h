@@ -11,7 +11,8 @@ public:
   Node& inNode;
   Node& outNode;
 
-  //define {equals in Java}
+  Edge(Node&, Node&);
+
   friend bool operator==(const Edge & lhs, const Edge & rhs);
 };
 

@@ -8,3 +8,6 @@
 bool operator==(const Edge & lhs, const Edge & rhs) {
   return lhs.inNode == rhs.inNode && lhs.outNode == rhs.outNode;
 }
+
+Edge::Edge(Node & inNode, Node & outNode): inNode(inNode),outNode(outNode) {
+}

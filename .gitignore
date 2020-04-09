@@ -47,3 +47,5 @@ _deps
 # idea
 .idea/
 cmake-build-debug/
+
+.DS_Store

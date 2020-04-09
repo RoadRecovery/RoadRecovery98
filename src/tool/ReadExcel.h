@@ -18,9 +18,11 @@ public:
 
     Graph & buildGraph(const std::string & csvDir);
 
-    static void readFromCSVFile(const std::string &dir, const std::string &fileName, int i);
+    void readFromCSVFile(const std::string &dir, const std::string &fileName, int i);
 
-    static void addEdgeFromLine(std::string lineStr, int flag);
+    void addEdgeFromLine(const std::string& lineStr, int flag);
+
+    void extractNode(const std::vector<std::string> &vector, int base, Node &node);
 };
 
 

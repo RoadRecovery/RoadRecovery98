@@ -23,7 +23,7 @@ public:
   Node();
 
   //copy a node element except for source
-  Node(const std::string& index, const std::string& name, NodeType type, Node* mutualNodePtr);
+  Node(const std::string& index, const std::string& name);
 
   //define equals function as that in Java, using operator==
   friend bool operator==(const Node& lhs, const Node& rhs);

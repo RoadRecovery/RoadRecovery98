@@ -9,21 +9,32 @@
 #include <string>
 #include <list>
 #include <map>
+#include "../entity/Graph.h"
 
 class PathRestoration {
 
 public:
 
-    int pathRestorationMethod(
-            const std::list<std::string>& GantryIdList,
-            const std::string& basicDataPath,
-            double modifyCost,
-            double addCost,
-            double deleteCost,
-            double deleteEndCost,
-            double deleteCost2,
-            std::list<std::map<std::string, std::string> >& GantryListMap);
+    static Graph graph;
 
+    const std::string & enStationId;
+    const std::string & exStationId;
+    const std::string & enTime;
+    const std::string & exTime;
+    const std::string & basicDataPath;
+
+    const std::list<std::string> & gantryIdList;
+
+    double addCost, deleteCost, deleteCost2, modifyCost, deleteEndCost;
+
+    PathRestoration(const std::string & enStationId,
+    const std::string & exStationId,
+    const std::string & enTime,
+    const std::string & exTime,
+    const std::string & basicDataPath,
+    const std::list<std::string> & gantryIdList);
+
+    int pathRestorationMethod(std::list<std::map<std::string, std::string> > &GantryListMap);
 };
 
 
