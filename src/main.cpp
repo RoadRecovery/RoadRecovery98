@@ -6,6 +6,6 @@ int main(int argc, char* argv[]) {
 
     ReadExcel readExcel = ReadExcel();
     readExcel.buildGraph("/Users/lind/Desktop/RoadRecovery98/inputs");
-
+    std::cout << "done" << std::endl;
     return 0;
 }

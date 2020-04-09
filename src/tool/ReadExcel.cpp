@@ -19,8 +19,9 @@ Graph & ReadExcel::buildGraph(const std::string & csvDir) {
     readFromCSVFile(csvDir, "mutual.csv", 2);
     readFromCSVFile(csvDir, "mileage.csv", 3);
 
-    std::cout << "nodes in graph = " << graph.nodeVector.size() << std::endl;
-    graph.buildAllShortestPath();
+//    std::cout << "nodes in graph = " << graph.nodeVector.size() << std::endl;
+    //FIXME: function below contains errors @Fancy
+//    graph.buildAllShortestPath();
     return graph;
 }
 
@@ -31,9 +32,19 @@ void ReadExcel::readFromCSVFile(const std::string &dir, const std::string &fileN
     //FIXME: file separator is incompatible with Windows
     inputFileStream.open(dir + "/" + fileName);
 
+    bool firstLine = true;
     while(!inputFileStream.eof()){
         inputFileStream >> line;
-        addEdgeFromLine(line, flag);
+        if (firstLine) {
+            firstLine = false;
+        }
+        else {
+            addEdgeFromLine(line, flag);
+//            std::cout
+//                << "flag: " << flag << std::endl
+//                << "content: " << line << std::endl
+//                << "nodes: " << graph.nodeVector.size() << std::endl;
+        }
     }
 }
 
@@ -44,29 +55,34 @@ void ReadExcel::addEdgeFromLine(const std::string& lineStr, int flag) {
     while (ss.good()) {
         std::string subStr;
         getline(ss, subStr, ',');
-        std::cout << subStr << std::endl;
         vector.push_back(subStr);
     }
 
     Node startNode, endNode;
-    extractNode(vector, 0, startNode);
-    if (flag != 3)
-        extractNode(vector, 3, endNode);
+    bool contains = extractNode(vector, 0, startNode);
 
     if (flag == 1) {
+        extractNode(vector, 3, endNode);
         Edge edge = Edge(startNode, endNode);
         graph.edgeVector.push_back(edge);
     }
     else if (flag == 2) {
-        startNode.mutualNodePtr = &endNode;
-        endNode.  mutualNodePtr = &startNode;
+        bool contains2 = extractNode(vector, 3, endNode);
+        if (contains && contains2) {
+            startNode.mutualNodePtr = &endNode;
+            endNode.mutualNodePtr = &startNode;
+        }
     }
     else if (flag == 3) {
-        startNode.mileage = atoi(vector[3].c_str());
+        if (contains)
+            startNode.mileage = atoi(vector[2].c_str());
     }
 }
 
-void ReadExcel::extractNode(const std::vector<std::string> &vector, int base, Node &node) {
+/**
+ * @return if find a node in graph, then return true; else return false.
+ */
+bool ReadExcel::extractNode(const std::vector<std::string> &vector, int base, Node &node) {
     node = Node(vector[base+0], vector[base+1]);
     switch (vector[base+2].at(0)) {
         case '0':
@@ -81,10 +97,14 @@ void ReadExcel::extractNode(const std::vector<std::string> &vector, int base, No
     }
 
     std::vector<Node>::iterator iterator = std::find(graph.nodeVector.begin(), graph.nodeVector.end(), node);
-    if (iterator != graph.nodeVector.end())
-        node =  *iterator;
-    else
+    if (iterator != graph.nodeVector.end()) {
+        node = *iterator;
+        return true;
+    }
+    else {
         graph.nodeVector.push_back(node);
+        return false;
+    }
 }
 
 
