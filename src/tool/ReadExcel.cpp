@@ -96,7 +96,7 @@ bool ReadExcel::extractNode(const std::vector<std::string> &vector, int base, No
             break;
     }
 
-    std::vector<Node>::iterator iterator = std::find(graph.nodeVector.begin(), graph.nodeVector.end(), node);
+    std::vector<Node>::const_iterator iterator = std::find(graph.nodeVector.begin(), graph.nodeVector.end(), node);
     if (iterator != graph.nodeVector.end()) {
         node = *iterator;
         return true;

@@ -11,9 +11,10 @@
 class RuntimePath {
 
 public:
-  std::vector<RuntimeNode> runtimeNodeVector;
+  std::vector<RuntimeNode> * runtimeNodeVector;
 
   RuntimePath();
+  RuntimePath(std::vector<RuntimeNode> * runtimeNodeVector);
 
   RuntimePath(Path &path, RuntimeNode &startRuntimeNode,
               RuntimeNode &endRuntimeNode);

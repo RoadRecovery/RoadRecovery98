@@ -3,22 +3,84 @@
 //
 
 #include "PathRestoration.h"
+#include "../algorithm/DPAlgorithm.h"
 
-PathRestoration::PathRestoration(const std::string &enStationId, const std::string &exStationId,
-                                 const std::string &enTime, const std::string &exTime,
-                                 const std::string &basicDataPath,
-                                 const std::list<std::string> & gantryIdList):
-                                 enStationId(enStationId), exStationId(exStationId),
-                                 enTime(enTime), exTime(exTime),
-                                 basicDataPath(basicDataPath),
-                                 gantryIdList(gantryIdList){
+PathRestoration::PathRestoration( std::string &enStationId,  std::string &exStationId,
+                                  std::string &enTime,  std::string &exTime,
+                                  std::string &basicDataPath,
+                                 const std::vector<std::pair<std::string, std::string> > & gantryIdList):
+        enStationId(enStationId), exStationId(exStationId),
+        enTime(enTime), exTime(exTime),
+        basicDataPath(basicDataPath),
+        gantryInputs(gantryIdList){
 }
 
-int PathRestoration::pathRestorationMethod(std::list<std::map<std::string, std::string> > &GantryListMap) {
+int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, std::string> > & gantryOutputs) {
+
+    //TODO: construct data structure that algorithm needs
+    ReadExcel readExcel = ReadExcel();
+    readExcel.buildGraph(basicDataPath);
+
+    std::vector<double> configs;
+    configs.push_back(modifyCost);
+    configs.push_back(addCost);
+    configs.push_back(deleteCost);
+    configs.push_back(deleteCost2);
+    configs.push_back(deleteEndCost);
+
+    std::vector<RuntimeNode> *runtimeNodeVector = new std::vector<RuntimeNode>();
+    //start node
+    if (!extractNode(readExcel, enStationId, enTime, runtimeNodeVector)) {
+        //TODO: no entry node.
+        return -1;
+    }
+
+    //middle gantry list
+    std::vector<std::pair<std::string, std::string> >::const_iterator iter;
+    for (iter = gantryInputs.begin(); iter != gantryInputs.end(); iter++) {
+        std::string firstStr = iter->first;
+        std::string secondStr = iter->second;
+        if (!extractNode(readExcel, firstStr, secondStr, runtimeNodeVector)) {
+            //TODO: no gantry node
+            return -1;
+        }
+    }
+
+    //end node
+    if (!extractNode(readExcel, exStationId, exTime, runtimeNodeVector)) {
+        //TODO: no exit node.
+        return -1;
+    }
+
+    RuntimePath runtimePath = RuntimePath(runtimeNodeVector);
+
+    //TODO: handle boundary cases
 
 
+    //TODO: core functionality @Fancy
+    DPAlgorithm algorithm = DPAlgorithm();
+    RuntimePath retRuntimePath = algorithm.execute(readExcel.graph, runtimePath, configs);
 
-
+    //TODO: dump into gantry outputs
+    for (std::vector<RuntimeNode>::const_iterator iter = retRuntimePath.runtimeNodeVector->begin();
+            iter != retRuntimePath.runtimeNodeVector->end(); iter++) {
+        iter->print();
+    }
 
     return 0;
 }
+
+bool PathRestoration::extractNode(const ReadExcel & readExcel, std::string & index, std::string & transTime,
+        std::vector<RuntimeNode> * runtimeNodeVector) {
+    Node node = Node(index, std::string());
+    std::vector<Node>::const_iterator iterator = std::find(readExcel.graph.nodeVector.begin(),
+                                                     readExcel.graph.nodeVector.end(), node);
+    if (iterator == readExcel.graph.nodeVector.end()) {
+        return false;
+    }
+    RuntimeNode runtimeNode = RuntimeNode(node, transTime);
+    runtimeNodeVector->push_back(runtimeNode);
+    return true;
+}
+
+

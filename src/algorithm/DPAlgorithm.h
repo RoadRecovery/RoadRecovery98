@@ -11,9 +11,11 @@ class DPAlgorithm : public Algorithm {
 
 public:
 
-  virtual RuntimePath execute(Graph & graph, RuntimePath & runtimePath, std::vector<double> & configs);
+    virtual RuntimePath execute(Graph & graph, RuntimePath & runtimePath, std::vector<double> & configs);
+
+    double distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode>* vector, int i, int j);
 };
 
-double distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode> vector, int i, int j);
+
 
 #endif //ROADRECOVERY98_DPALGORITHM_H

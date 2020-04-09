@@ -10,6 +10,8 @@
 #include <list>
 #include <map>
 #include "../entity/Graph.h"
+#include "../entity/RuntimeNode.h"
+#include "../tool/ReadExcel.h"
 
 class PathRestoration {
 
@@ -17,24 +19,26 @@ public:
 
     static Graph graph;
 
-    const std::string & enStationId;
-    const std::string & exStationId;
-    const std::string & enTime;
-    const std::string & exTime;
-    const std::string & basicDataPath;
+     std::string & enStationId;
+     std::string & exStationId;
+     std::string & enTime;
+     std::string & exTime;
+     std::string & basicDataPath;
 
-    const std::list<std::string> & gantryIdList;
+    const std::vector<std::pair<std::string, std::string> > & gantryInputs;
 
     double addCost, deleteCost, deleteCost2, modifyCost, deleteEndCost;
 
-    PathRestoration(const std::string & enStationId,
-    const std::string & exStationId,
-    const std::string & enTime,
-    const std::string & exTime,
-    const std::string & basicDataPath,
-    const std::list<std::string> & gantryIdList);
+    PathRestoration( std::string & enStationId,
+     std::string & exStationId,
+     std::string & enTime,
+     std::string & exTime,
+     std::string & basicDataPath,
+    const std::vector<std::pair<std::string, std::string> > & gantryIdList);
 
-    int pathRestorationMethod(std::list<std::map<std::string, std::string> > &GantryListMap);
+    int pathRestorationMethod(std::vector<std::pair<std::string, std::string> > & gantryOutputs);
+
+    bool extractNode(const ReadExcel & ,  std::string&,  std::string& , std::vector<RuntimeNode> *);
 };
 
 

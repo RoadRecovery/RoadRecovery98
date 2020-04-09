@@ -2,6 +2,7 @@
 // Created by lida on 2020/3/31.
 //
 
+#include <iostream>
 #include "RuntimeNode.h"
 
 RuntimeNode::RuntimeNode(Node & node, std::string & transTime)
@@ -10,5 +11,9 @@ RuntimeNode::RuntimeNode(Node & node, std::string & transTime)
 
 bool operator==(RuntimeNode & lhs, RuntimeNode & rhs) {
   return lhs.node == rhs.node;
+}
+
+void RuntimeNode::print() const {
+    std::cout << node.index <<"    "<< node.name <<"    "<< node.type <<"    "<< transTime  << std::endl;
 }
 

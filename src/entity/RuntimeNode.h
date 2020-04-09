@@ -9,12 +9,14 @@
 class RuntimeNode {
 
 public:
-  Node& node;
+  Node &node;
   std::string & transTime;
 
   RuntimeNode(Node &node, std::string &transTime);
 
-  friend bool operator==(RuntimeNode & lhs, RuntimeNode & rhs);
+  void print() const;
+
+  friend bool operator==(const RuntimeNode & lhs, const RuntimeNode & rhs);
 
   //TODO: clone?
 };
