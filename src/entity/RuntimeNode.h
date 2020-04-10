@@ -9,10 +9,10 @@
 class RuntimeNode {
 
 public:
-  Node &node;
-  std::string & transTime;
+  Node node;
+  std::string transTime;
 
-  RuntimeNode(Node &node, std::string &transTime);
+  RuntimeNode(const Node & node, const std::string& transTime);
 
   void print() const;
 

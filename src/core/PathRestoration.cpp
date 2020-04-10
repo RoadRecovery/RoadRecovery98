@@ -4,6 +4,7 @@
 
 #include "PathRestoration.h"
 #include "../algorithm/DPAlgorithm.h"
+#include <algorithm>
 
 PathRestoration::PathRestoration( std::string &enStationId,  std::string &exStationId,
                                   std::string &enTime,  std::string &exTime,

@@ -2,10 +2,10 @@
 // Created by lida on 2020/3/31.
 //
 
-#include <iostream>
 #include "RuntimeNode.h"
+#include <iostream>
 
-RuntimeNode::RuntimeNode(Node & node, std::string & transTime)
+RuntimeNode::RuntimeNode(const Node & node, const std::string& transTime)
 :node(node), transTime(transTime) {
 }
 
