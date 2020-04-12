@@ -8,10 +8,10 @@
 #include "Node.h"
 class Edge {
 public:
-  Node& inNode;
-  Node& outNode;
+  Node inNode;
+  Node outNode;
 
-  Edge(Node&, Node&);
+  Edge(Node, Node);
 
   friend bool operator==(const Edge & lhs, const Edge & rhs);
 };

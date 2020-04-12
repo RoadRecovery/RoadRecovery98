@@ -4,10 +4,12 @@
 
 #include "Edge.h"
 
-//reference must not refer to an empty object!!!
+// reference must not refer to an empty object!!!
 bool operator==(const Edge & lhs, const Edge & rhs) {
   return lhs.inNode == rhs.inNode && lhs.outNode == rhs.outNode;
 }
 
-Edge::Edge(Node & inNode, Node & outNode): inNode(inNode),outNode(outNode) {
+Edge::Edge(Node inNode, Node outNode) {
+  this->inNode = inNode;
+  this->outNode = outNode;
 }

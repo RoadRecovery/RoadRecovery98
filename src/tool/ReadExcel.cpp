@@ -2,11 +2,12 @@
 // Created by lida on 2020/3/31.
 //
 
-#include <iostream>
+#include "ReadExcel.h"
 #include <algorithm>
 #include <fstream>
+#include <iostream>
+#include <queue>
 #include <sstream>
-#include "ReadExcel.h"
 
 ReadExcel::ReadExcel() {
     graph = Graph();
@@ -19,9 +20,9 @@ Graph & ReadExcel::buildGraph(const std::string & csvDir) {
     readFromCSVFile(csvDir, "mutual.csv", 2);
     readFromCSVFile(csvDir, "mileage.csv", 3);
 
-//    std::cout << "nodes in graph = " << graph.nodeVector.size() << std::endl;
-    //FIXME: function below contains errors @Fancy
-//    graph.buildAllShortestPath();
+    std::cout << "nodes in graph = " << graph.nodeVector.size() << std::endl;
+    std::cout << "edges in graph = " << graph.edgeVector.size() << std::endl;
+    graph.buildAllShortestPath();
     return graph;
 }
 
@@ -40,10 +41,6 @@ void ReadExcel::readFromCSVFile(const std::string &dir, const std::string &fileN
         }
         else {
             addEdgeFromLine(line, flag);
-//            std::cout
-//                << "flag: " << flag << std::endl
-//                << "content: " << line << std::endl
-//                << "nodes: " << graph.nodeVector.size() << std::endl;
         }
     }
 }
@@ -52,6 +49,8 @@ void ReadExcel::addEdgeFromLine(const std::string& lineStr, int flag) {
 
     std::stringstream ss(lineStr);
     std::vector<std::string> vector;
+
+//    std::cout << lineStr << std::endl;
     while (ss.good()) {
         std::string subStr;
         getline(ss, subStr, ',');
@@ -63,8 +62,7 @@ void ReadExcel::addEdgeFromLine(const std::string& lineStr, int flag) {
 
     if (flag == 1) {
         extractNode(vector, 3, endNode);
-        Edge edge = Edge(startNode, endNode);
-        graph.edgeVector.push_back(edge);
+        graph.edgeVector.emplace_back(startNode, endNode);
     }
     else if (flag == 2) {
         bool contains2 = extractNode(vector, 3, endNode);
@@ -106,5 +104,7 @@ bool ReadExcel::extractNode(const std::vector<std::string> &vector, int base, No
         return false;
     }
 }
+
+
 
 

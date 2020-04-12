@@ -63,15 +63,17 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
 
 
     //TODO: core functionality @Fancy
-//    DPAlgorithm algorithm = DPAlgorithm();
-//    RuntimePath retRuntimePath = algorithm.execute(readExcel.graph, runtimePath, configs);
-    RuntimePath retRuntimePath = RuntimePath();
+    DPAlgorithm algorithm = DPAlgorithm();
+    RuntimePath retRuntimePath = algorithm.execute(readExcel.graph, runtimePath, configs);
+//    RuntimePath retRuntimePath = RuntimePath();
 
     //TODO: dump into gantry outputs
     for (std::vector<RuntimeNode>::const_iterator iter = retRuntimePath.runtimeNodeVector->begin();
             iter != retRuntimePath.runtimeNodeVector->end(); iter++) {
         iter->print();
     }
+
+    //TODO: output data
 
     return 0;
 }
@@ -84,7 +86,7 @@ bool PathRestoration::extractNode(const ReadExcel & readExcel, std::string & ind
     if (iterator == readExcel.graph.nodeVector.end()) {
         return false;
     }
-    RuntimeNode runtimeNode = RuntimeNode(node, transTime);
+    RuntimeNode runtimeNode = RuntimeNode(*iterator, transTime);
     runtimeNodeVector->push_back(runtimeNode);
     return true;
 }

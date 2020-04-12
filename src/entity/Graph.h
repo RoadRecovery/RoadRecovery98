@@ -16,11 +16,16 @@ public:
   std::vector<Node> nodeVector;
   std::vector<Edge> edgeVector;
 
+  std::vector<std::vector<int> > edges;
+  std::vector<std::vector<int> > dist;
+  std::vector<std::vector<int> > pre_node;
+
+  int upperBound;
+
   Graph();
 
   Path getShortestPath(const Node &, const Node &);
 
-  //pre-process the shortest path in the graph
   void buildAllShortestPath();
 
 };
