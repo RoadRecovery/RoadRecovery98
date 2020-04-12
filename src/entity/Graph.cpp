@@ -11,6 +11,7 @@ Graph::Graph() { upperBound = 0x3fffffff; }
 
 Path Graph::getShortestPath(const Node& inNode, const Node& outNode) {
     //FIXME
+    //Java version
 //  //Dijkstra algorithm
 //  int from = nodes.indexOf(inNode);
 //  int to = nodes.indexOf(outNode);
@@ -27,6 +28,7 @@ Path Graph::getShortestPath(const Node& inNode, const Node& outNode) {
 //  Collections.reverse(path.nodeList);
 //  return path;
 
+  //C++ version
   int from = std::distance(nodeVector.begin(), std::find(nodeVector.begin(), nodeVector.end(), inNode));
   int to = std::distance(nodeVector.begin(), std::find(nodeVector.begin(), nodeVector.end(), outNode));
   return NULL;
