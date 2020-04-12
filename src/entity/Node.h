@@ -28,7 +28,7 @@ public:
   //define equals function as that in Java, using operator==
   friend bool operator==(const Node& lhs, const Node& rhs);
 
-
+	Node* clone() const { return new Node( *this );}
 };
 
 

@@ -10,7 +10,6 @@
 Graph::Graph() { upperBound = 0x3fffffff; }
 
 Path Graph::getShortestPath(const Node& inNode, const Node& outNode) {
-    //FIXME
     //Java version
 //  //Dijkstra algorithm
 //  int from = nodes.indexOf(inNode);
@@ -31,9 +30,16 @@ Path Graph::getShortestPath(const Node& inNode, const Node& outNode) {
   //C++ version
   int from = std::distance(nodeVector.begin(), std::find(nodeVector.begin(), nodeVector.end(), inNode));
   int to = std::distance(nodeVector.begin(), std::find(nodeVector.begin(), nodeVector.end(), outNode));
-  return NULL;
+  if (dist[from][to] == upperBound) return NULL;
+  std::vector<Node> *nodes = new std::vector<Node>;
+  for (int x = to; x != -1; x = pre_node[from][x]) {
+  	Node *node = nodeVector[x].clone();
+  	node->source = (x == to || x == from) ? IDENTIFY : ADD;
+  	nodes->push_back(*node);
+  }
+  std::reverse(nodes->begin(), nodes->end());
+  return Path(nodes);
 }
-
 
 struct NodeDijkstra {
   long dis;
