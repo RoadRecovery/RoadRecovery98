@@ -22,7 +22,7 @@ public:
 
     void addEdgeFromLine(const std::string& lineStr, int flag);
 
-    bool extractNode(const std::vector<std::string> &vector, int base, Node &node);
+    int extractNode(const std::vector<std::string> &vector, int base, Node &node);
 
 
 };

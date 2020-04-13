@@ -58,23 +58,23 @@ void ReadExcel::addEdgeFromLine(const std::string& lineStr, int flag) {
     }
 
     Node startNode, endNode;
-    bool contains = extractNode(vector, 0, startNode);
+    int startIndex = extractNode(vector, 0, startNode), endIndex;
 
     if (flag == 1) {
-        extractNode(vector, 3, endNode);
-        graph.edgeVector.emplace_back(startNode, endNode);
+        endIndex = extractNode(vector, 3, endNode);
+        graph.edgeVector.push_back(Edge(startNode, endNode));
     }
     else if (flag == 2) {
-        bool contains2 = extractNode(vector, 3, endNode);
-        if (contains && contains2) {
-            startNode.mutualNodePtr = &endNode;
-            endNode.mutualNodePtr = &startNode;
+        endIndex = extractNode(vector, 3, endNode);
+        if (startIndex >= 0 && endIndex >= 0) {
+            graph.nodeVector[startIndex].mutualNodePtr = & graph.nodeVector[endIndex];
+            graph.nodeVector[endIndex].mutualNodePtr = & graph.nodeVector[startIndex];
         }
     }
     else if (flag == 3) {
-      if (contains) {
-        startNode.mileage = atol(vector[2].c_str());
-        std::cout << startNode.index << ":" << startNode.mileage << std::endl;
+      if (startIndex >= 0) {
+        graph.nodeVector[startIndex].mileage = atol(vector[2].c_str());
+        std::cout << graph.nodeVector[startIndex].index << ":" << graph.nodeVector[startIndex].mileage << std::endl;
       }
     }
 }
@@ -82,7 +82,7 @@ void ReadExcel::addEdgeFromLine(const std::string& lineStr, int flag) {
 /**
  * @return if find a node in graph, then return true; else return false.
  */
-bool ReadExcel::extractNode(const std::vector<std::string> &vector, int base, Node &node) {
+int ReadExcel::extractNode(const std::vector<std::string> &vector, int base, Node &node) {
     node = Node(vector[base+0], vector[base+1]);
     switch (vector[base+2].at(0)) {
         case '0':
@@ -96,15 +96,14 @@ bool ReadExcel::extractNode(const std::vector<std::string> &vector, int base, No
             break;
     }
 
-    std::vector<Node>::const_iterator iterator = std::find(graph.nodeVector.begin(), graph.nodeVector.end(), node);
+    std::vector<Node>::iterator iterator = std::find(graph.nodeVector.begin(), graph.nodeVector.end(), node);
     if (iterator != graph.nodeVector.end()) {
-        std::cout << std::distance(graph.nodeVector.begin(), std::find(graph.nodeVector.begin(), graph.nodeVector.end(), node)) << std::endl;
         node = *iterator;
-        return true;
+        return std::distance(graph.nodeVector.begin(), std::find(graph.nodeVector.begin(), graph.nodeVector.end(), node));
     }
     else {
         graph.nodeVector.push_back(node);
-        return false;
+        return -1;
     }
 }
 
