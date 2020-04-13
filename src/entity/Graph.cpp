@@ -65,15 +65,11 @@ void Graph::buildAllShortestPath() {
       NodeDijkstra x = q.top();
       q.pop();
       if (dist[from][x.index] >= x.dis) {
-        if (from == 666 && x.index == 661) {
-          int k = 1;
-        }
-
         dist[from][x.index] = x.dis;
-        if (from == 666)
-          std::cout << "from=" << from << "=" << nodeVector[from].index <<
-              ", to=" << x.index << " " << nodeVector[x.index].index <<
-              " distance=" << dist[from][x.index] << std::endl;
+//        if (from == 666)
+//          std::cout << "from=" << from << "=" << nodeVector[from].index <<
+//              ", to=" << x.index << " " << nodeVector[x.index].index <<
+//              " distance=" << dist[from][x.index] << std::endl;
         pre_node[from][x.index] = x.pre_node;
         if (x.index != from && nodeVector[x.index].type == TOLLSTATION) continue;
         // 收费站不能再往下转移
