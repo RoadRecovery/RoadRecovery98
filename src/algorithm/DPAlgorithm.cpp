@@ -3,9 +3,22 @@
 //
 
 #include "DPAlgorithm.h"
+#include <iostream>
 
-RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
-                                 std::vector<double> &configs) {
+DPAlgorithm::DPAlgorithm(int size) {
+  dpPath.clear();
+  for (int i=0; i<size; i++) {
+    dpPath.push_back(*new std::vector<RuntimePath>());
+    for (int j = 0; j<2; j++) {
+      dpPath[i].push_back(*new RuntimePath());
+      dpPath[i][j].runtimeNodeVector = new std::vector<RuntimeNode>();
+    }
+  }
+}
+
+void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
+    std::vector<double> &configs, RuntimePath & answerPath) {
+
   //implement the DP core logic.
   double modifyCost = configs.at(0); //0.01
   double addCost = configs.at(1); //0.1
@@ -16,12 +29,11 @@ RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
   bool debug = true;
 
   int originalPathSize = originalPath.runtimeNodeVector->size();
+
   double dp[originalPathSize][2];
-  RuntimePath dpPath[originalPathSize][2];
   double distanceFromDeletedNodesToIJ[originalPathSize][originalPathSize];
 
   double answer = -1;
-  RuntimePath answerPath;
 
   bool not_delete_first = originalPath.runtimeNodeVector->front().node.type == TOLLSTATION;
   bool not_delete_last = originalPath.runtimeNodeVector->back().node.type == TOLLSTATION;
@@ -31,7 +43,7 @@ RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
       distanceFromDeletedNodesToIJ[i][j] = j - i <= 1 ? 0 :
           distanceFromNodesToNodes(graph, originalPath.runtimeNodeVector, i, j);
       if (debug)
-        printf("distance delete %d %d: %f\n", i, j, distanceFromDeletedNodesToIJ[i][j]);
+        std::cout <<"distance delete " <<  i << " " << j << ": " << distanceFromDeletedNodesToIJ[i][j] << std::endl;
     }
   }
 
@@ -47,7 +59,7 @@ RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
         nodeI.transTime.clear();
       }
 
-      dpPath[i][flagI].runtimeNodeVector->push_back(*new RuntimeNode(nodeI.node, nodeI.transTime));
+      dpPath[i][flagI].runtimeNodeVector->push_back(RuntimeNode(nodeI.node, nodeI.transTime));
       dpPath[i][flagI].runtimeNodeVector->front().node.source = IDENTIFY;
       for (int flagJ = 0; flagJ <= 1; ++flagJ) {
         for (int j = i - 1; j >= 0; --j) {
@@ -61,7 +73,7 @@ RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
           // shortest path from nodeJ to nodeI
           Path shortestPath = graph.getShortestPath(nodeJ.node, nodeI.node);
           if (shortestPath.nodeVector->empty()) continue;
-          RuntimePath runtimeShortestPath = *new RuntimePath(shortestPath, nodeJ, nodeI);
+          RuntimePath runtimeShortestPath = RuntimePath(shortestPath, nodeJ, nodeI);
           if (!(nodeI.node == nodeJ.node)
                           || (flagI == 1 && flagJ == 1)) { // When i == j and has one IDENTIFY, then IDENTIFY
             if (flagJ == 1) runtimeShortestPath.runtimeNodeVector->front().node.source = MODIFY;
@@ -84,6 +96,11 @@ RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
               dpPath[i][flagI].runtimeNodeVector->clear();
               dpPath[i][flagI].add(dpPath[j][flagJ]);
               dpPath[i][flagI].add(runtimeShortestPath);
+
+              if (debug) {
+                std::cout << "dp[" << i << "][" << flagI << "]: " << dp[i][flagI]
+                  << " (from dp[" << j << "][" << flagJ << "])";
+              }
             }
           }
           // update method 2: delete node 0 to j-1, j+1 to i-1
@@ -97,6 +114,11 @@ RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
               dp[i][flagI] = result;
               dpPath[i][flagI].runtimeNodeVector->clear();
               dpPath[i][flagI].add(runtimeShortestPath);
+
+              if (debug) {
+                std::cout << "dp[" << i << "][" << flagI << "]: " << dp[i][flagI]
+                          << " (from dp[" << j << "][" << flagJ << "])";
+              }
             }
           }
         }
@@ -106,13 +128,13 @@ RuntimePath DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
           && (answer == -1 || dp[i][flagI] + (originalPathSize - 1 - i) * deleteEndCost < answer)
           && (dp[i][flagI] != -1)) {
 
+        std::cout << "update answer" << std::endl;
         answer = dp[i][flagI] + (originalPathSize - 1 - i) * deleteEndCost; // 相当于后面都删掉
         answerPath = dpPath[i][flagI];
       }
     }
   }
-  // TODO: new & delete
-  return answerPath; // empty when failed
+
 }
 
 double DPAlgorithm::distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode> * nodeVector, int i, int j) {
@@ -138,3 +160,4 @@ double DPAlgorithm::distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNo
   }
   return ((double) ret) / (j - i - 1);
 }
+

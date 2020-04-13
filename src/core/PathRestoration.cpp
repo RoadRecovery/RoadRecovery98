@@ -63,13 +63,14 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
 
 
     //TODO: core functionality @Fancy
-    DPAlgorithm algorithm = DPAlgorithm();
-    RuntimePath retRuntimePath = algorithm.execute(readExcel.graph, runtimePath, configs);
+    DPAlgorithm algorithm = DPAlgorithm(runtimePath.runtimeNodeVector->size());
+    RuntimePath answerPath;
+    algorithm.execute(readExcel.graph, runtimePath, configs, answerPath);
 //    RuntimePath retRuntimePath = RuntimePath();
 
     //TODO: dump into gantry outputs
-    for (std::vector<RuntimeNode>::const_iterator iter = retRuntimePath.runtimeNodeVector->begin();
-            iter != retRuntimePath.runtimeNodeVector->end(); iter++) {
+    for (std::vector<RuntimeNode>::const_iterator iter = answerPath.runtimeNodeVector->begin();
+            iter != answerPath.runtimeNodeVector->end(); iter++) {
         iter->print();
     }
 

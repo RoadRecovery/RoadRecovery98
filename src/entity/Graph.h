@@ -24,7 +24,7 @@ public:
 
   Graph();
 
-  Path getShortestPath(const Node &, const Node &);
+  Path & getShortestPath(const Node &, const Node &);
 
   void buildAllShortestPath();
 

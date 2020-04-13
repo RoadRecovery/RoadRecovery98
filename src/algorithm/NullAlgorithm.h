@@ -11,7 +11,7 @@ class NullAlgorithm {
 
 public:
 
-  virtual RuntimePath execute(Graph & graph, RuntimePath & runtimePath, std::vector<double> & configs);
+  virtual void execute(Graph & graph, RuntimePath & runtimePath, std::vector<double> & configs, RuntimePath &);
 };
 
 

@@ -10,10 +10,13 @@
 class DPAlgorithm : public Algorithm {
 
 public:
+  std::vector<std::vector<RuntimePath> > dpPath;
 
-    virtual RuntimePath execute(Graph & graph, RuntimePath & runtimePath, std::vector<double> & configs);
+  DPAlgorithm(int size);
 
-    double distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode>* vector, int i, int j);
+  virtual void execute(Graph & graph, RuntimePath & runtimePath, std::vector<double> & configs, RuntimePath &);
+
+  double distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode>* vector, int i, int j);
 };
 
 

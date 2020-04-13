@@ -72,8 +72,10 @@ void ReadExcel::addEdgeFromLine(const std::string& lineStr, int flag) {
         }
     }
     else if (flag == 3) {
-        if (contains)
-            startNode.mileage = atoi(vector[2].c_str());
+      if (contains) {
+        startNode.mileage = atol(vector[2].c_str());
+        std::cout << startNode.index << ":" << startNode.mileage << std::endl;
+      }
     }
 }
 
@@ -96,6 +98,7 @@ bool ReadExcel::extractNode(const std::vector<std::string> &vector, int base, No
 
     std::vector<Node>::const_iterator iterator = std::find(graph.nodeVector.begin(), graph.nodeVector.end(), node);
     if (iterator != graph.nodeVector.end()) {
+        std::cout << std::distance(graph.nodeVector.begin(), std::find(graph.nodeVector.begin(), graph.nodeVector.end(), node)) << std::endl;
         node = *iterator;
         return true;
     }

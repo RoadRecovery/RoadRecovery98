@@ -3,8 +3,6 @@
 //
 
 #include "NullAlgorithm.h"
-RuntimePath NullAlgorithm::execute(Graph & graph, RuntimePath & runtimePath,
-                                   std::vector<double> & configs) {
-  //simply return the original path
-  return runtimePath;
+void NullAlgorithm::execute(Graph & graph, RuntimePath & runtimePath,
+    std::vector<double> & configs, RuntimePath & answerPath) {
 }

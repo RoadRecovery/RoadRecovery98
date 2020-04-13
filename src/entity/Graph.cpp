@@ -9,36 +9,21 @@
 
 Graph::Graph() { upperBound = 0x3fffffff; }
 
-Path Graph::getShortestPath(const Node& inNode, const Node& outNode) {
-    //Java version
-//  //Dijkstra algorithm
-//  int from = nodes.indexOf(inNode);
-//  int to = nodes.indexOf(outNode);
-//
-//  if (dist[from][to] == Integer.MAX_VALUE / 2) {
-//    return null;
-//  }
-//  Path path = new Path();
-//  for (int x = to; x != -1; x = pre_node[from][x]) {
-//    Node node = (Node) (nodes.get(x)).clone();
-//    node.source = (x == to || x == from) ? IDENTIFY : ADD;
-//    path.nodeList.add(node);
-//  }
-//  Collections.reverse(path.nodeList);
-//  return path;
+Path & Graph::getShortestPath(const Node& inNode, const Node& outNode) {
 
-  //C++ version
   int from = std::distance(nodeVector.begin(), std::find(nodeVector.begin(), nodeVector.end(), inNode));
   int to = std::distance(nodeVector.begin(), std::find(nodeVector.begin(), nodeVector.end(), outNode));
-  if (dist[from][to] == upperBound) return NULL;
+
   std::vector<Node> *nodes = new std::vector<Node>;
+  if (dist[from][to] == upperBound) return *new Path(nodes);
+
   for (int x = to; x != -1; x = pre_node[from][x]) {
   	Node *node = nodeVector[x].clone();
   	node->source = (x == to || x == from) ? IDENTIFY : ADD;
   	nodes->push_back(*node);
   }
   std::reverse(nodes->begin(), nodes->end());
-  return Path(nodes);
+  return *new Path(nodes);
 }
 
 struct NodeDijkstra {
@@ -94,5 +79,8 @@ void Graph::buildAllShortestPath() {
       }
     }
   }
+
+  std::cout << "special from to to: " << dist[2168][659] << std::endl;
+  std::cout << "upper bound: " << upperBound << std::endl;
 }
 
