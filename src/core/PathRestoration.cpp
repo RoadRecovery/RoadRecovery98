@@ -33,9 +33,9 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
     configs.push_back(deleteCost2);
     configs.push_back(deleteEndCost);
 
-    std::vector<RuntimeNode> *runtimeNodeVector = new std::vector<RuntimeNode>();
+    std::vector<RuntimeNode> runtimeNodeVector =  std::vector<RuntimeNode>();
     //start node
-    if (!extractNode(readExcel, enStationId, enTime, runtimeNodeVector)) {
+    if (!extractNode(readExcel, enStationId, enTime, &runtimeNodeVector)) {
         //TODO: no entry node.
         return -1;
     }
@@ -45,14 +45,14 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
     for (iter = gantryInputs.begin(); iter != gantryInputs.end(); iter++) {
         std::string firstStr = iter->first;
         std::string secondStr = iter->second;
-        if (!extractNode(readExcel, firstStr, secondStr, runtimeNodeVector)) {
+        if (!extractNode(readExcel, firstStr, secondStr, &runtimeNodeVector)) {
             //TODO: no gantry node
             return -1;
         }
     }
 
     //end node
-    if (!extractNode(readExcel, exStationId, exTime, runtimeNodeVector)) {
+    if (!extractNode(readExcel, exStationId, exTime, &runtimeNodeVector)) {
         //TODO: no exit node.
         return -1;
     }
@@ -63,14 +63,13 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
 
 
     //TODO: core functionality @Fancy
-    DPAlgorithm algorithm = DPAlgorithm(runtimePath.runtimeNodeVector->size());
+    DPAlgorithm algorithm = DPAlgorithm(runtimePath.runtimeNodeVector.size());
     RuntimePath answerPath;
     algorithm.execute(readExcel.graph, runtimePath, configs, answerPath);
-//    RuntimePath retRuntimePath = RuntimePath();
 
     //TODO: dump into gantry outputs
-    for (std::vector<RuntimeNode>::const_iterator iter = answerPath.runtimeNodeVector->begin();
-            iter != answerPath.runtimeNodeVector->end(); iter++) {
+    for (std::vector<RuntimeNode>::const_iterator iter = answerPath.runtimeNodeVector.begin();
+            iter != answerPath.runtimeNodeVector.end(); iter++) {
         iter->print();
     }
 

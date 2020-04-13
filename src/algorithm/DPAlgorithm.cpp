@@ -11,7 +11,7 @@ DPAlgorithm::DPAlgorithm(int size) {
     dpPath.push_back(*new std::vector<RuntimePath>());
     for (int j = 0; j<2; j++) {
       dpPath[i].push_back(*new RuntimePath());
-      dpPath[i][j].runtimeNodeVector = new std::vector<RuntimeNode>();
+      dpPath[i][j].runtimeNodeVector = std::vector<RuntimeNode>();
     }
   }
 }
@@ -28,15 +28,15 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
 
   bool debug = true;
 
-  int originalPathSize = originalPath.runtimeNodeVector->size();
+  int originalPathSize = originalPath.runtimeNodeVector.size();
 
   double dp[originalPathSize][2];
   double distanceFromDeletedNodesToIJ[originalPathSize][originalPathSize];
 
   double answer = -1;
 
-  bool not_delete_first = originalPath.runtimeNodeVector->front().node.type == TOLLSTATION;
-  bool not_delete_last = originalPath.runtimeNodeVector->back().node.type == TOLLSTATION;
+  bool not_delete_first = originalPath.runtimeNodeVector.front().node.type == TOLLSTATION;
+  bool not_delete_last = originalPath.runtimeNodeVector.back().node.type == TOLLSTATION;
 
   for (int i = 0; i < originalPathSize; ++i) {
     for (int j = i; j < originalPathSize; ++j) {
@@ -52,22 +52,22 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
       // initial dp array
       dp[i][flagI] = (i == 0) ? (modifyCost * flagI) : -1;
       // nodeI: v_i or T(v_i) controlled by nodeI
-      if (flagI && originalPath.runtimeNodeVector->at(i).node.mutualNodePtr == NULL) continue;
-      RuntimeNode nodeI = originalPath.runtimeNodeVector->at(i);
+      if (flagI && originalPath.runtimeNodeVector.at(i).node.mutualNodePtr == NULL) continue;
+      RuntimeNode nodeI = originalPath.runtimeNodeVector.at(i);
       if (flagI) {
-        nodeI.node = *(originalPath.runtimeNodeVector->at(i).node.mutualNodePtr);
+        nodeI.node = *(originalPath.runtimeNodeVector.at(i).node.mutualNodePtr);
         nodeI.transTime.clear();
       }
 
-      dpPath[i][flagI].runtimeNodeVector->push_back(RuntimeNode(nodeI.node, nodeI.transTime));
-      dpPath[i][flagI].runtimeNodeVector->front().node.source = IDENTIFY;
+      dpPath[i][flagI].runtimeNodeVector.push_back(RuntimeNode(nodeI.node, nodeI.transTime));
+      dpPath[i][flagI].runtimeNodeVector.front().node.source = IDENTIFY;
       for (int flagJ = 0; flagJ <= 1; ++flagJ) {
         for (int j = i - 1; j >= 0; --j) {
           // nodeJ: v_j or T(v_j) controlled by flagJ
-          if (flagJ && originalPath.runtimeNodeVector->at(j).node.mutualNodePtr == NULL) continue;
-          RuntimeNode nodeJ = originalPath.runtimeNodeVector->at(j);
+          if (flagJ && originalPath.runtimeNodeVector.at(j).node.mutualNodePtr == NULL) continue;
+          RuntimeNode nodeJ = originalPath.runtimeNodeVector.at(j);
           if (flagJ) {
-            nodeJ.node = *(originalPath.runtimeNodeVector->at(j).node.mutualNodePtr);
+            nodeJ.node = *(originalPath.runtimeNodeVector.at(j).node.mutualNodePtr);
             nodeJ.transTime.clear();
           }
           // shortest path from nodeJ to nodeI
@@ -76,8 +76,8 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
           RuntimePath runtimeShortestPath = RuntimePath(shortestPath, nodeJ, nodeI);
           if (!(nodeI.node == nodeJ.node)
                           || (flagI == 1 && flagJ == 1)) { // When i == j and has one IDENTIFY, then IDENTIFY
-            if (flagJ == 1) runtimeShortestPath.runtimeNodeVector->front().node.source = MODIFY;
-            if (flagI == 1) runtimeShortestPath.runtimeNodeVector->back().node.source = MODIFY;
+            if (flagJ == 1) runtimeShortestPath.runtimeNodeVector.front().node.source = MODIFY;
+            if (flagI == 1) runtimeShortestPath.runtimeNodeVector.back().node.source = MODIFY;
           }
           // FIXME: find suitable cost
           double distance = runtimeShortestPath.getLength();
@@ -93,13 +93,13 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
             // update
             if (dp[i][flagI] == -1 || result <= dp[i][flagI]) {
               dp[i][flagI] = result;
-              dpPath[i][flagI].runtimeNodeVector->clear();
+              dpPath[i][flagI].runtimeNodeVector.clear();
               dpPath[i][flagI].add(dpPath[j][flagJ]);
               dpPath[i][flagI].add(runtimeShortestPath);
 
               if (debug) {
                 std::cout << "dp[" << i << "][" << flagI << "]: " << dp[i][flagI]
-                  << " (from dp[" << j << "][" << flagJ << "])";
+                  << " (from dp[" << j << "][" << flagJ << "])\n";
               }
             }
           }
@@ -112,12 +112,12 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
                 + addCost * distance;
             if (dp[i][flagI] == -1 || result <= dp[i][flagI]) {
               dp[i][flagI] = result;
-              dpPath[i][flagI].runtimeNodeVector->clear();
+              dpPath[i][flagI].runtimeNodeVector.clear();
               dpPath[i][flagI].add(runtimeShortestPath);
 
               if (debug) {
                 std::cout << "dp[" << i << "][" << flagI << "]: " << dp[i][flagI]
-                          << " (from dp[" << j << "][" << flagJ << "])";
+                          << " (from dp[" << j << "][" << flagJ << "])\n";
               }
             }
           }
@@ -137,13 +137,13 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
 
 }
 
-double DPAlgorithm::distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode> * nodeVector, int i, int j) {
+double DPAlgorithm::distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode> & nodeVector, int i, int j) {
   long ret = 0;
-  RuntimeNode nodeI = nodeVector->at(i);
-  RuntimeNode nodeJ = nodeVector->at(j);
+  RuntimeNode nodeI = nodeVector.at(i);
+  RuntimeNode nodeJ = nodeVector.at(j);
   for (int k = i + 1; k < j; ++k) {
     long dis = -1;
-    RuntimeNode nodeK = nodeVector->at(k);
+    RuntimeNode nodeK = nodeVector.at(k);
     Path path = graph.getShortestPath(nodeI.node, nodeK.node);
     if (!path.nodeVector->empty()) dis = path.getLength();
     path = graph.getShortestPath(nodeK.node, nodeJ.node);

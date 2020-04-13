@@ -74,7 +74,7 @@ void ReadExcel::addEdgeFromLine(const std::string& lineStr, int flag) {
     else if (flag == 3) {
       if (startIndex >= 0) {
         graph.nodeVector[startIndex].mileage = atol(vector[2].c_str());
-        std::cout << graph.nodeVector[startIndex].index << ":" << graph.nodeVector[startIndex].mileage << std::endl;
+//        std::cout << graph.nodeVector[startIndex].index << ":" << graph.nodeVector[startIndex].mileage << std::endl;
       }
     }
 }
