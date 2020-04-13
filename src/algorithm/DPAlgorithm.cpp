@@ -71,8 +71,12 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
             nodeJ.transTime.clear();
           }
           // shortest path from nodeJ to nodeI
+          std::cout << nodeJ.node.index << " "<< j << " -> " << nodeI.node.index << " "<< i << std::endl;
           Path shortestPath = graph.getShortestPath(nodeJ.node, nodeI.node);
-          if (shortestPath.nodeVector->empty()) continue;
+          if (shortestPath.nodeVector->empty()) {
+            std::cout << "shortest path does not exist!" << std::endl;
+            continue;
+          }
           RuntimePath runtimeShortestPath = RuntimePath(shortestPath, nodeJ, nodeI);
           if (!(nodeI.node == nodeJ.node)
                           || (flagI == 1 && flagJ == 1)) { // When i == j and has one IDENTIFY, then IDENTIFY

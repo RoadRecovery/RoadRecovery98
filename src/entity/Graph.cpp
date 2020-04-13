@@ -13,7 +13,7 @@ Path & Graph::getShortestPath(const Node& inNode, const Node& outNode) {
 
   int from = std::distance(nodeVector.begin(), std::find(nodeVector.begin(), nodeVector.end(), inNode));
   int to = std::distance(nodeVector.begin(), std::find(nodeVector.begin(), nodeVector.end(), outNode));
-
+  std::cout << inNode.index << " "<< from << " -> " << outNode.index << " "<< to << std::endl;
   std::vector<Node> *nodes = new std::vector<Node>;
   if (dist[from][to] == upperBound) return *new Path(nodes);
 
@@ -65,7 +65,15 @@ void Graph::buildAllShortestPath() {
       NodeDijkstra x = q.top();
       q.pop();
       if (dist[from][x.index] >= x.dis) {
+        if (from == 666 && x.index == 661) {
+          int k = 1;
+        }
+
         dist[from][x.index] = x.dis;
+        if (from == 666)
+          std::cout << "from=" << from << "=" << nodeVector[from].index <<
+              ", to=" << x.index << " " << nodeVector[x.index].index <<
+              " distance=" << dist[from][x.index] << std::endl;
         pre_node[from][x.index] = x.pre_node;
         if (x.index != from && nodeVector[x.index].type == TOLLSTATION) continue;
         // 收费站不能再往下转移
@@ -79,8 +87,5 @@ void Graph::buildAllShortestPath() {
       }
     }
   }
-
-  std::cout << "special from to to: " << dist[2168][659] << std::endl;
-  std::cout << "upper bound: " << upperBound << std::endl;
 }
 

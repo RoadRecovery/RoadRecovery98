@@ -18,11 +18,17 @@ Graph & ReadExcel::buildGraph(const std::string & csvDir) {
     //edge.csv, mutual.csv, and mileage.csv
     readFromCSVFile(csvDir, "edge.csv", 1);
     readFromCSVFile(csvDir, "mutual.csv", 2);
+
+    //init
+    for (int i = 0; i < graph.nodeVector.size(); i++)
+      if (graph.nodeVector[i].type == TOLLSTATION)
+        graph.nodeVector[i].mileage = 0;
     readFromCSVFile(csvDir, "mileage.csv", 3);
 
     std::cout << "nodes in graph = " << graph.nodeVector.size() << std::endl;
     std::cout << "edges in graph = " << graph.edgeVector.size() << std::endl;
     graph.buildAllShortestPath();
+    graph.getShortestPath(Node("3D200B", ""), Node("G0035370030010", ""));
     return graph;
 }
 
