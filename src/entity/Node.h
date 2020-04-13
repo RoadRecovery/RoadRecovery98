@@ -29,6 +29,7 @@ public:
   friend bool operator==(const Node& lhs, const Node& rhs);
 
 	Node* clone() const { return new Node( *this );}
+  Node &foo();
 };
 
 
