@@ -13,7 +13,7 @@ Path & Graph::getShortestPath(const Node& inNode, const Node& outNode) {
 
   int from = std::distance(nodeVector.begin(), std::find(nodeVector.begin(), nodeVector.end(), inNode));
   int to = std::distance(nodeVector.begin(), std::find(nodeVector.begin(), nodeVector.end(), outNode));
-  std::cout << inNode.index << " "<< from << " -> " << outNode.index << " "<< to << std::endl;
+//  std::cout << inNode.index << " "<< from << " -> " << outNode.index << " "<< to << std::endl;
   std::vector<Node> *nodes = new std::vector<Node>;
   if (dist[from][to] == upperBound) return *new Path(nodes);
 
@@ -56,7 +56,8 @@ void Graph::buildAllShortestPath() {
 
   std::priority_queue<NodeDijkstra> q;
   for (int from = 0; from < nodeVector.size(); ++from) {
-//    std::fill(dist[from].begin(), dist[from].end(), upperBound); // TODO: to -1
+    // TODO: to -1
+//    std::fill(dist[from].begin(), dist[from].end(), upperBound);
 //    std::fill(pre_node[from].begin(), pre_node[from].end(), -1);
     while (!q.empty()) q.pop();
     q.push(NodeDijkstra(from, 0, -1));

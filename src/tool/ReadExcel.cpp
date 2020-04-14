@@ -37,7 +37,8 @@ void ReadExcel::readFromCSVFile(const std::string &dir, const std::string &fileN
     std::string line;
 
     //FIXME: file separator is incompatible with Windows
-    inputFileStream.open(dir + "/" + fileName);
+    std::string filePath = dir + "/" + fileName;
+    inputFileStream.open(filePath.c_str());
 
     bool firstLine = true;
     while(!inputFileStream.eof()){

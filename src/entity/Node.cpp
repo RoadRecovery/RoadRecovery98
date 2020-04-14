@@ -3,6 +3,8 @@
 //
 
 #include "Node.h"
+#include <iomanip>
+#include <iostream>
 
 Node::Node() {
     this->mutualNodePtr = NULL;
@@ -16,5 +18,10 @@ Node::Node(const std::string &index, const std::string &name) {
 
 bool operator==(const Node &lhs, const Node &rhs) { return lhs.index == rhs.index; }
 
-
-
+void Node::print() {
+  std::cout << std::setw(20) << index
+      << std::setw(20) << name
+      << std::setw(20) << source
+      << std::setw(20) << type
+      << std::setw(20) << mileage;
+}

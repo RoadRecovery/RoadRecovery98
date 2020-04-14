@@ -21,7 +21,7 @@ public:
 
   long getLength();
 
-  void print(std::string desc);
+  void print(const std::string& desc);
 
   void add(RuntimePath path2);
 

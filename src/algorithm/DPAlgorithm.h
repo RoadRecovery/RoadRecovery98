@@ -16,7 +16,7 @@ public:
 
   virtual void execute(Graph & graph, RuntimePath & runtimePath, std::vector<double> & configs, RuntimePath &);
 
-  double distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode> & vector, int i, int j);
+  static double distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode> & vector, int i, int j);
 };
 
 

@@ -2,8 +2,9 @@
 // Created by lida on 2020/3/31.
 //
 
-#include <iostream>
 #include "RuntimePath.h"
+#include <iomanip>
+#include <iostream>
 
 RuntimePath::RuntimePath() {}
 
@@ -26,34 +27,34 @@ long RuntimePath::getLength() {
   return length;
 }
 
-void RuntimePath::print(std::string desc) {
-	std::cout << "---" << desc << " begin---" << std::endl;
-	std::cout << "---length = " << runtimeNodeVector.size() << " ---" << std::endl;
-//	for (RuntimeNode runtimeNode : runtimeNodeVector) {
-//		System.out.println(fixedLengthString(runtimeNode.node.index, 20) + " " +
-//			fixedLengthString(runtimeNode.node.source.toString(), 20)+ " " +
-//			fixedLengthString(runtimeNode.transTime, 20) + " " +
-//			fixedLengthString(String.valueOf(runtimeNode.node.mileage), 20) + " " +
-//			fixedLengthString(runtimeNode.node.name, 20));
-//	}
-	std::cout << "---path end---" << std::endl;
+void RuntimePath::print(const std::string& desc) {
+  std::cout << "---" << desc << " begin---" << std::endl;
+  std::cout << "---length = " << runtimeNodeVector.size() << " ---" << std::endl;
+  for (int i = 0; i < runtimeNodeVector.size(); ++i) {
+    RuntimeNode & runtimeNode = runtimeNodeVector[i];
+    runtimeNode.node.print();
+    std::cout << std::setw(20) << runtimeNode.transTime << std::endl;
+  }
+
+  std::cout << "---path end---" << std::endl;
 }
 
 void RuntimePath::add(RuntimePath path2) {
-	if (!runtimeNodeVector.empty() && !path2.runtimeNodeVector.empty()
-		&& runtimeNodeVector.back() == path2.runtimeNodeVector.front()) {
-		if (path2.runtimeNodeVector.front().node.source == IDENTIFY) {
-			runtimeNodeVector.back().node.source = IDENTIFY;
-		}
-		runtimeNodeVector.insert(runtimeNodeVector.end(),
-								 path2.runtimeNodeVector.begin() + 1,
-								 path2.runtimeNodeVector.end());
-	} else {
-		runtimeNodeVector.insert(runtimeNodeVector.end(),
-								 path2.runtimeNodeVector.begin(),
-								 path2.runtimeNodeVector.end());
-	}
+  if (!runtimeNodeVector.empty() && !path2.runtimeNodeVector.empty()
+    && runtimeNodeVector.back() == path2.runtimeNodeVector.front()) {
+
+    if (path2.runtimeNodeVector.front().node.source == IDENTIFY) {
+      runtimeNodeVector.back().node.source = IDENTIFY;
+    }
+    runtimeNodeVector.insert(runtimeNodeVector.end(),
+        path2.runtimeNodeVector.begin() + 1, path2.runtimeNodeVector.end());
+  } else {
+    runtimeNodeVector.insert(runtimeNodeVector.end(),
+        path2.runtimeNodeVector.begin(),
+        path2.runtimeNodeVector.end());
+  }
 }
+
 RuntimePath::RuntimePath(std::vector<RuntimeNode> & runtimeNodeVector) {
   this->runtimeNodeVector = runtimeNodeVector;
 }

@@ -6,23 +6,35 @@
 #include "../algorithm/DPAlgorithm.h"
 #include <algorithm>
 
-PathRestoration::PathRestoration( std::string &enStationId,  std::string &exStationId,
-                                  std::string &enTime,  std::string &exTime,
-                                  std::string &basicDataPath,
-                                  double addCost,double deleteCost,double deleteCost2,double modifyCost,
-                                  double deleteEndCost,
-                                 const std::vector<std::pair<std::string, std::string> > & gantryInputs):
-        enStationId(enStationId), exStationId(exStationId),
-        enTime(enTime), exTime(exTime),
+PathRestoration::PathRestoration(
+    std::string & enStationId,
+    std::string & enTime,
+    std::string & exStationId,
+    std::string & exTime,
+    std::string & basicDataPath,
+    double modifyCost,
+    double addCost,
+    double deleteCost,
+    double deleteCost2,
+    double deleteEndCost,
+    const std::vector<std::pair<std::string, std::string> > & gantryInputs):
+        enStationId(enStationId),
+        enTime(enTime),
+        exStationId(exStationId),
+        exTime(exTime),
         basicDataPath(basicDataPath),
-        addCost(addCost), deleteCost(deleteCost), deleteCost2(deleteCost2), modifyCost(modifyCost),
+        modifyCost(modifyCost),
+        addCost(addCost),
+        deleteCost(deleteCost),
+        deleteCost2(deleteCost2),
         deleteEndCost(deleteEndCost),
-        gantryInputs(gantryInputs){
-}
+        gantryInputs(gantryInputs)
+        {
+        }
 
 int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, std::string> > & gantryOutputs) {
 
-    //TODO: construct data structure that algorithm needs
+    //construct data structure that algorithm needs
     ReadExcel readExcel = ReadExcel();
     readExcel.buildGraph(basicDataPath);
 
@@ -36,7 +48,7 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
     std::vector<RuntimeNode> runtimeNodeVector =  std::vector<RuntimeNode>();
     //start node
     if (!extractNode(readExcel, enStationId, enTime, &runtimeNodeVector)) {
-        //TODO: no entry node.
+        //no entry node.
         return -1;
     }
 
@@ -46,14 +58,14 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
         std::string firstStr = iter->first;
         std::string secondStr = iter->second;
         if (!extractNode(readExcel, firstStr, secondStr, &runtimeNodeVector)) {
-            //TODO: no gantry node
+            //no gantry node
             return -1;
         }
     }
 
     //end node
     if (!extractNode(readExcel, exStationId, exTime, &runtimeNodeVector)) {
-        //TODO: no exit node.
+        //no exit node.
         return -1;
     }
 
@@ -62,18 +74,14 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
     //TODO: handle boundary cases
 
 
-    //TODO: core functionality @Fancy
+    //core functionality
     DPAlgorithm algorithm = DPAlgorithm(runtimePath.runtimeNodeVector.size());
     RuntimePath answerPath;
     algorithm.execute(readExcel.graph, runtimePath, configs, answerPath);
+    answerPath.print("recovered path");
 
-    //TODO: dump into gantry outputs
-    for (std::vector<RuntimeNode>::const_iterator iter = answerPath.runtimeNodeVector.begin();
-            iter != answerPath.runtimeNodeVector.end(); iter++) {
-        iter->print();
-    }
+    //TODO: handle the recovered path and dump into gantry outputs
 
-    //TODO: output data
 
     return 0;
 }

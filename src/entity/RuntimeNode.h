@@ -18,7 +18,6 @@ public:
 
   friend bool operator==(const RuntimeNode & lhs, const RuntimeNode & rhs);
 
-  //TODO: clone?
 };
 
 

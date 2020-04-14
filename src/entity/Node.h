@@ -30,6 +30,7 @@ public:
 
 	Node* clone() const { return new Node( *this );}
   Node &foo();
+        void print();
 };
 
 
