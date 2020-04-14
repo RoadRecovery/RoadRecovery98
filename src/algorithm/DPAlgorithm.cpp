@@ -8,9 +8,9 @@
 DPAlgorithm::DPAlgorithm(int size) {
   dpPath.clear();
   for (int i=0; i<size; i++) {
-    dpPath.push_back(*new std::vector<RuntimePath>());
+    dpPath.push_back(std::vector<RuntimePath>());
     for (int j = 0; j<2; j++) {
-      dpPath[i].push_back(*new RuntimePath());
+      dpPath[i].push_back(RuntimePath());
       dpPath[i][j].runtimeNodeVector = std::vector<RuntimeNode>();
     }
   }
@@ -79,7 +79,7 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
           // shortest path from nodeJ to nodeI
 //          std::cout << nodeJ.node.index << " "<< j << " -> " << nodeI.node.index << " "<< i << std::endl;
           Path shortestPath = graph.getShortestPath(nodeJ.node, nodeI.node);
-          if (shortestPath.nodeVector->empty()) {
+          if (shortestPath.nodeVector.empty()) {
 //            std::cout << "shortest path does not exist!" << std::endl;
             continue;
           }
@@ -155,16 +155,16 @@ double DPAlgorithm::distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNo
     long dis = -1;
     RuntimeNode nodeK = nodeVector.at(k);
     Path path = graph.getShortestPath(nodeI.node, nodeK.node);
-    if (!path.nodeVector->empty()) dis = path.getLength();
+    if (!path.nodeVector.empty()) dis = path.getLength();
     path = graph.getShortestPath(nodeK.node, nodeJ.node);
-    if (!path.nodeVector->empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
+    if (!path.nodeVector.empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
     if (nodeK.node.mutualNodePtr != NULL) {
       nodeK.node = *nodeK.node.mutualNodePtr;
       nodeK.transTime.clear();
       path = graph.getShortestPath(nodeI.node, nodeK.node);
-      if (!path.nodeVector->empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
+      if (!path.nodeVector.empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
       path = graph.getShortestPath(nodeK.node, nodeJ.node);
-      if (!path.nodeVector->empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
+      if (!path.nodeVector.empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
     }
     ret += dis;
   }

@@ -16,8 +16,8 @@ bool operator==(const RuntimeNode & lhs, const RuntimeNode & rhs) {
 
 void RuntimeNode::print() const {
   std::cout << std::setw(15) << node.index
-            << std::setw(5) << node.source
-            << std::setw(5) << node.type
+            << std::setw(10) << node.source
+            << std::setw(10) << node.type
             << std::setw(10) << node.mileage
             << " " << node.name
             << std::endl;

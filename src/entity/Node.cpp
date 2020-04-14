@@ -25,3 +25,7 @@ void Node::print() {
       << std::setw(20) << type
       << std::setw(20) << mileage;
 }
+Node::Node(const Node &node):
+  index(node.index), name(node.name), type(node.type), mileage(node.mileage),
+  source(node.source), mutualNodePtr(node.mutualNodePtr) {
+}

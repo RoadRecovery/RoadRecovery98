@@ -22,6 +22,8 @@ public:
   //constructor without arguments, DO I really need default constructor?
   Node();
 
+  Node(const Node & node);
+
   //copy a node element except for source
   Node(const std::string& index, const std::string& name);
 

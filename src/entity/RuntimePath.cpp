@@ -9,8 +9,8 @@
 RuntimePath::RuntimePath() {}
 
 RuntimePath::RuntimePath(Path& path, RuntimeNode & startRuntimeNode, RuntimeNode & endRuntimeNode) {
-  for (int i = 0; i < path.nodeVector->size(); ++i) {
-    Node & node = path.nodeVector->at(i);
+  for (int i = 0; i < path.nodeVector.size(); ++i) {
+    Node & node = path.nodeVector.at(i);
     std::string transTime = std::string();
     if (node == startRuntimeNode.node) transTime = startRuntimeNode.transTime;
     if (node == endRuntimeNode.node)   transTime = endRuntimeNode.transTime;
@@ -30,6 +30,12 @@ long RuntimePath::getLength() {
 void RuntimePath::print(const std::string& desc) {
   std::cout << std::endl << "--- " << desc << " begin ---" << std::endl;
   std::cout << "--- length = " << runtimeNodeVector.size() << " ---" << std::endl << std::endl;
+  std::cout << std::setw(15) << "index"
+            << std::setw(10) << "source"
+            << std::setw(10) << "type"
+            << std::setw(10) << "mileage"
+            << " " << "name"
+            << std::endl;
   for (int i = 0; i < runtimeNodeVector.size(); ++i) {
     RuntimeNode & runtimeNode = runtimeNodeVector[i];
     runtimeNode.print();

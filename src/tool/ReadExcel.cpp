@@ -28,7 +28,6 @@ Graph & ReadExcel::buildGraph(const std::string & csvDir) {
     std::cout << "nodes in graph = " << graph.nodeVector.size() <<
         "; edges in graph = " << graph.edgeVector.size() << std::endl;
     graph.buildAllShortestPath();
-    graph.getShortestPath(Node("3D200B", ""), Node("G0035370030010", ""));
     return graph;
 }
 

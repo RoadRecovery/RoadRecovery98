@@ -9,21 +9,21 @@
 
 Graph::Graph() { upperBound = 0x3fffffff; }
 
-Path & Graph::getShortestPath(const Node& inNode, const Node& outNode) {
+Path Graph::getShortestPath(const Node& inNode, const Node& outNode) {
 
   int from = std::distance(nodeVector.begin(), std::find(nodeVector.begin(), nodeVector.end(), inNode));
   int to = std::distance(nodeVector.begin(), std::find(nodeVector.begin(), nodeVector.end(), outNode));
-//  std::cout << inNode.index << " "<< from << " -> " << outNode.index << " "<< to << std::endl;
-  std::vector<Node> *nodes = new std::vector<Node>;
-  if (dist[from][to] == upperBound) return *new Path(nodes);
+
+  std::vector<Node> nodes = std::vector<Node>();
+  if (dist[from][to] == upperBound) return Path(nodes);
 
   for (int x = to; x != -1; x = pre_node[from][x]) {
-  	Node *node = nodeVector[x].clone();
-  	node->source = (x == to || x == from) ? IDENTIFY : ADD;
-  	nodes->push_back(*node);
+  	Node node(nodeVector[x]);
+  	node.source = (x == to || x == from) ? IDENTIFY : ADD;
+  	nodes.push_back(node);
   }
-  std::reverse(nodes->begin(), nodes->end());
-  return *new Path(nodes);
+  std::reverse(nodes.begin(), nodes.end());
+  return Path(nodes);
 }
 
 struct NodeDijkstra {
@@ -35,6 +35,7 @@ struct NodeDijkstra {
 
 void Graph::buildAllShortestPath() {
 
+  std::cout << "build shortest path init." << std::endl;
   for (int i = 0; i < nodeVector.size(); ++i) {
     edges.push_back(std::vector<int>());
     dist.push_back(std::vector<int>());
@@ -54,11 +55,10 @@ void Graph::buildAllShortestPath() {
     edges[x].push_back(y);
   }
 
+  std::cout << "build shortest path middle." << std::endl;
   std::priority_queue<NodeDijkstra> q;
   for (int from = 0; from < nodeVector.size(); ++from) {
-    // TODO: to -1
-//    std::fill(dist[from].begin(), dist[from].end(), upperBound);
-//    std::fill(pre_node[from].begin(), pre_node[from].end(), -1);
+//    std::cout << "update from " << from << std::endl;
     while (!q.empty()) q.pop();
     q.push(NodeDijkstra(from, 0, -1));
 
@@ -67,10 +67,6 @@ void Graph::buildAllShortestPath() {
       q.pop();
       if (dist[from][x.index] >= x.dis) {
         dist[from][x.index] = x.dis;
-//        if (from == 666)
-//          std::cout << "from=" << from << "=" << nodeVector[from].index <<
-//              ", to=" << x.index << " " << nodeVector[x.index].index <<
-//              " distance=" << dist[from][x.index] << std::endl;
         pre_node[from][x.index] = x.pre_node;
         if (x.index != from && nodeVector[x.index].type == TOLLSTATION) continue;
         // 收费站不能再往下转移
@@ -84,5 +80,6 @@ void Graph::buildAllShortestPath() {
       }
     }
   }
+  std::cout << "build shortest path done." << std::endl;
 }
 
