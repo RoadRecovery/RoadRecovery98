@@ -1,12 +1,6 @@
 #include "entity/Node.h"
 #include "tool/ReadExcel.h"
 #include "core/PathRestoration.h"
-#include <iostream>
-
-//Node fooNode("foo", "");
-//Node & Node::foo() {
-//  return fooNode;
-//}
 
 int main(int argc, char* argv[]) {
 
