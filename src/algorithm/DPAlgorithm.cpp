@@ -20,10 +20,10 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
     std::vector<double> &configs, RuntimePath & answerPath) {
 
   //implement the DP core logic.
-  double modifyCost = configs.at(0); //0.01
-  double addCost = configs.at(1); //0.1
-  double deleteCost = configs.at(2); //4000
-  double deleteCost2 = configs.at(3); //2
+  double modifyCost =    configs.at(0); //0.01
+  double addCost =       configs.at(1); //0.1
+  double deleteCost =    configs.at(2); //4000
+  double deleteCost2 =   configs.at(3); //2
   double deleteEndCost = configs.at(4); //1000000
 
   bool debug = false;
@@ -32,7 +32,7 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
 
   // dp[originalPathSize][2]
   std::vector<std::vector<double> > dp;
-//  double distanceFromDeletedNodesToIJ[originalPathSize][originalPathSize];
+//  distanceFromDeletedNodesToIJ[originalPathSize][originalPathSize];
   std::vector<std::vector<double> > distanceFromDeletedNodesToIJ;
   double answer = -1;
 
@@ -42,7 +42,7 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
   for (int i = 0; i < originalPathSize; ++i) {
     distanceFromDeletedNodesToIJ.push_back(std::vector<double>());
     for (int j = 0; j < i; j++) {
-      distanceFromDeletedNodesToIJ[i].push_back(0);
+      distanceFromDeletedNodesToIJ[i].push_back(-1);
     }
     for (int j = i; j < originalPathSize; ++j) {
       distanceFromDeletedNodesToIJ[i].push_back( j - i <= 1 ? 0 :
@@ -144,8 +144,7 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
       }
     }
   }
-
-  answerPath.print("in DP");
+//  answerPath.print("in DP");
 }
 
 double DPAlgorithm::distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode> & nodeVector, int i, int j) {

@@ -28,15 +28,14 @@ long RuntimePath::getLength() {
 }
 
 void RuntimePath::print(const std::string& desc) {
-  std::cout << "---" << desc << " begin---" << std::endl;
-  std::cout << "---length = " << runtimeNodeVector.size() << " ---" << std::endl;
+  std::cout << std::endl << "--- " << desc << " begin ---" << std::endl;
+  std::cout << "--- length = " << runtimeNodeVector.size() << " ---" << std::endl << std::endl;
   for (int i = 0; i < runtimeNodeVector.size(); ++i) {
     RuntimeNode & runtimeNode = runtimeNodeVector[i];
-    runtimeNode.node.print();
-    std::cout << std::setw(20) << runtimeNode.transTime << std::endl;
+    runtimeNode.print();
   }
 
-  std::cout << "---path end---" << std::endl;
+  std::cout << "--- path end ---" << std::endl << std::endl;
 }
 
 void RuntimePath::add(RuntimePath path2) {

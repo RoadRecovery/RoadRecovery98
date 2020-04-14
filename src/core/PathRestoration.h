@@ -29,13 +29,19 @@ public:
 
     double addCost, deleteCost, deleteCost2, modifyCost, deleteEndCost;
 
-    PathRestoration( std::string & enStationId,
-     std::string & exStationId,
-     std::string & enTime,
-     std::string & exTime,
-     std::string & basicDataPath,
-     double addCost,double deleteCost,double deleteCost2,double modifyCost,double deleteEndCost,
-    const std::vector<std::pair<std::string, std::string> > & gantryInputs);
+    PathRestoration(
+	    std::string & enStationId,
+	    std::string & enTime,
+	    std::string & exStationId,
+	    std::string & exTime,
+	    std::string & basicDataPath,
+	    double modifyCost,
+	    double addCost,
+	    double deleteCost,
+	    double deleteCost2,
+	    double deleteEndCost,
+	    const std::vector<std::pair<std::string, std::string> > & gantryInputs
+    	);
 
     int pathRestorationMethod(std::vector<std::pair<std::string, std::string> > & gantryOutputs);
 

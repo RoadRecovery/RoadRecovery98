@@ -3,6 +3,7 @@
 //
 
 #include "RuntimeNode.h"
+#include <iomanip>
 #include <iostream>
 
 RuntimeNode::RuntimeNode(const Node & node, const std::string& transTime)
@@ -14,6 +15,11 @@ bool operator==(const RuntimeNode & lhs, const RuntimeNode & rhs) {
 }
 
 void RuntimeNode::print() const {
-    std::cout << node.index <<"    "<< node.name <<"    "<< node.type <<"    "<< transTime  << std::endl;
+  std::cout << std::setw(15) << node.index
+            << std::setw(5) << node.source
+            << std::setw(5) << node.type
+            << std::setw(10) << node.mileage
+            << " " << node.name
+            << std::endl;
 }
 

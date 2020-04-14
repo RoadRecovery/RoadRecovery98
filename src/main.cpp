@@ -19,12 +19,11 @@ int main(int argc, char* argv[]) {
   gantryInputs.push_back(std::make_pair("3D200B", "2020-01-22 16:50:00"));
   gantryInputs.push_back(std::make_pair("3C2003", "2020-01-22 17:00:00"));
 
-  PathRestoration pathRestoration = PathRestoration(enStationId, exStationId, enTime, exTime,
-      basicDataPath,0.1, 500, 2, 0.01, 100000, gantryInputs);
+  PathRestoration pathRestoration = PathRestoration(enStationId, enTime, exStationId, exTime,
+      basicDataPath, 0.01, 0.1, 500, 2, 100000, gantryInputs);
   std::vector<std::pair<std::string, std::string> > gantryOutputs;
   pathRestoration.pathRestorationMethod(gantryOutputs);
 
-//  std::cout << "done" << std::endl;
   return 0;
 }
 

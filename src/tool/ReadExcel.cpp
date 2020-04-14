@@ -25,8 +25,8 @@ Graph & ReadExcel::buildGraph(const std::string & csvDir) {
         graph.nodeVector[i].mileage = 0;
     readFromCSVFile(csvDir, "mileage.csv", 3);
 
-    std::cout << "nodes in graph = " << graph.nodeVector.size() << std::endl;
-    std::cout << "edges in graph = " << graph.edgeVector.size() << std::endl;
+    std::cout << "nodes in graph = " << graph.nodeVector.size() <<
+        "; edges in graph = " << graph.edgeVector.size() << std::endl;
     graph.buildAllShortestPath();
     graph.getShortestPath(Node("3D200B", ""), Node("G0035370030010", ""));
     return graph;
