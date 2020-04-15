@@ -2,26 +2,26 @@ cmake_minimum_required(VERSION 3.15)
 project(RoadRecovery98)
 
 # for testing and release, respectively
-set(GTEST false)
+set(GTEST true)
 
 if (GTEST)
     set(cmake_cxx_standard 11)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g -O")
 
     # Download and unpack googletest at configure time
-    configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
-    execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-                    RESULT_VARIABLE result
-                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
-    if(result)
-        message(FATAL_ERROR "CMake step for googletest failed: ${result}")
-    endif()
-    execute_process(COMMAND ${CMAKE_COMMAND} --build .
-                    RESULT_VARIABLE result
-                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
-    if(result)
-        message(FATAL_ERROR "Build step for googletest failed: ${result}")
-    endif()
+#    configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
+#    execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+#                    RESULT_VARIABLE result
+#                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
+#    if(result)
+#        message(FATAL_ERROR "CMake step for googletest failed: ${result}")
+#    endif()
+#    execute_process(COMMAND ${CMAKE_COMMAND} --build .
+#                    RESULT_VARIABLE result
+#                    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/googletest-download )
+#    if(result)
+#        message(FATAL_ERROR "Build step for googletest failed: ${result}")
+#    endif()
 
     # Prevent overriding the parent project's compiler/linker
     # settings on Windows
@@ -46,7 +46,12 @@ if (GTEST)
     #add_test(NAME example_test COMMAND test)
 
     # For customized command
+    add_subdirectory(test)
+#    add_subdirectory(src)
 
+    add_executable(RRTest test/PathRestorationTest.cpp)
+    target_link_libraries(RRTest gtest_main)
+    add_test(NAME RRTestRun COMMAND RRTest)
 
 else()
     set(cmake_cxx_standard 98)
@@ -56,11 +61,3 @@ else()
 
     include_directories(src)
 endif()
-
-
-
-
-
-
-
-
