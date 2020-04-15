@@ -13,6 +13,7 @@ class Graph {
 
 public:
 
+  bool built;
   std::vector<Node> nodeVector;
   std::vector<Edge> edgeVector;
 

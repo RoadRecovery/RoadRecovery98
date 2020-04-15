@@ -18,6 +18,10 @@ int main(int argc, char* argv[]) {
   std::vector<std::pair<std::string, std::string> > gantryOutputs;
   pathRestoration.pathRestorationMethod(gantryOutputs);
 
+  PathRestoration pathRestoration2 = PathRestoration(enStationId, enTime, exStationId, exTime,
+       basicDataPath, 0.01, 0.1, 500, 2, 100000, gantryInputs);
+  pathRestoration2.pathRestorationMethod(gantryOutputs);
+
   return 0;
 }
 

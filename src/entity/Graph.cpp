@@ -7,7 +7,7 @@
 #include <iostream>
 #include <queue>
 
-Graph::Graph() { upperBound = 0x3fffffff; }
+Graph::Graph() { upperBound = 0x3fffffff; built = false; }
 
 Path Graph::getShortestPath(const Node& inNode, const Node& outNode) {
 
@@ -34,8 +34,9 @@ struct NodeDijkstra {
 };
 
 void Graph::buildAllShortestPath() {
+  built = true;
 
-  std::cout << "build shortest path init." << std::endl;
+//  std::cout << "build shortest path init." << std::endl;
   for (int i = 0; i < nodeVector.size(); ++i) {
     edges.push_back(std::vector<int>());
     dist.push_back(std::vector<int>());
@@ -55,7 +56,7 @@ void Graph::buildAllShortestPath() {
     edges[x].push_back(y);
   }
 
-  std::cout << "build shortest path middle." << std::endl;
+//  std::cout << "build shortest path middle." << std::endl;
   std::priority_queue<NodeDijkstra> q;
   for (int from = 0; from < nodeVector.size(); ++from) {
 //    std::cout << "update from " << from << std::endl;

@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <iostream>
 
+ReadExcel PathRestoration::readExcel = ReadExcel();
+
 PathRestoration::PathRestoration(
     std::string & enStationId,
     std::string & enTime,
@@ -35,12 +37,15 @@ PathRestoration::PathRestoration(
 
 int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, std::string> > & gantryOutputs) {
 
-  //construct data structure that algorithm needs
-  std::cout << "read graph init." << std::endl;
-  ReadExcel readExcel = ReadExcel();
-  readExcel.buildGraph(basicDataPath);
+  if (!readExcel.graph.built) {
+      std::cout << "read graph init." << std::endl;
+      readExcel.buildGraph(basicDataPath);
+      std::cout << "read graph done." << std::endl;
+  }
+  else {
+      std::cout << "graph has already built." << std::endl;
+  }
 
-  std::cout << "read graph done." << std::endl;
   std::vector<double> configs;
   configs.push_back(modifyCost);
   configs.push_back(addCost);
@@ -50,7 +55,7 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
 
   std::vector<RuntimeNode> runtimeNodeVector =  std::vector<RuntimeNode>();
   //start node
-  if (!extractNode(readExcel, enStationId, enTime, &runtimeNodeVector)) {
+  if (!extractNode(readExcel.graph, enStationId, enTime, &runtimeNodeVector)) {
       //no entry node.
       return -1;
   }
@@ -60,14 +65,14 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
   for (iter = gantryInputs.begin(); iter != gantryInputs.end(); iter++) {
       std::string firstStr = iter->first;
       std::string secondStr = iter->second;
-      if (!extractNode(readExcel, firstStr, secondStr, &runtimeNodeVector)) {
+      if (!extractNode(readExcel.graph, firstStr, secondStr, &runtimeNodeVector)) {
           //no gantry node
           return -1;
       }
   }
 
   //end node
-  if (!extractNode(readExcel, exStationId, exTime, &runtimeNodeVector)) {
+  if (!extractNode(readExcel.graph, exStationId, exTime, &runtimeNodeVector)) {
       //no exit node.
       return -1;
   }
@@ -91,12 +96,12 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
   return 0;
 }
 
-bool PathRestoration::extractNode(const ReadExcel & readExcel, std::string & index, std::string & transTime,
+bool PathRestoration::extractNode(const Graph & graph, std::string & index, std::string & transTime,
         std::vector<RuntimeNode> * runtimeNodeVector) {
     Node node = Node(index, std::string());
-    std::vector<Node>::const_iterator iterator = std::find(readExcel.graph.nodeVector.begin(),
-                                                     readExcel.graph.nodeVector.end(), node);
-    if (iterator == readExcel.graph.nodeVector.end()) {
+    std::vector<Node>::const_iterator iterator = std::find(graph.nodeVector.begin(),
+                                                     graph.nodeVector.end(), node);
+    if (iterator == graph.nodeVector.end()) {
         return false;
     }
     RuntimeNode runtimeNode = RuntimeNode(*iterator, transTime);

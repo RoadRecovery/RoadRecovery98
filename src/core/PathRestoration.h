@@ -17,35 +17,35 @@ class PathRestoration {
 
 public:
 
-    static Graph graph;
+  static ReadExcel readExcel;
 
-     std::string & enStationId;
-     std::string & exStationId;
-     std::string & enTime;
-     std::string & exTime;
-     std::string & basicDataPath;
+  std::string & enStationId;
+  std::string & exStationId;
+  std::string & enTime;
+  std::string & exTime;
+  std::string & basicDataPath;
 
-    const std::vector<std::pair<std::string, std::string> > & gantryInputs;
+  const std::vector<std::pair<std::string, std::string> > & gantryInputs;
 
-    double addCost, deleteCost, deleteCost2, modifyCost, deleteEndCost;
+  double addCost, deleteCost, deleteCost2, modifyCost, deleteEndCost;
 
-    PathRestoration(
-	    std::string & enStationId,
-	    std::string & enTime,
-	    std::string & exStationId,
-	    std::string & exTime,
-	    std::string & basicDataPath,
-	    double modifyCost,
-	    double addCost,
-	    double deleteCost,
-	    double deleteCost2,
-	    double deleteEndCost,
-	    const std::vector<std::pair<std::string, std::string> > & gantryInputs
-    	);
+  PathRestoration(
+          std::string & enStationId,
+          std::string & enTime,
+          std::string & exStationId,
+          std::string & exTime,
+          std::string & basicDataPath,
+          double modifyCost,
+          double addCost,
+          double deleteCost,
+          double deleteCost2,
+          double deleteEndCost,
+          const std::vector<std::pair<std::string, std::string> > & gantryInputs
+      );
 
-    int pathRestorationMethod(std::vector<std::pair<std::string, std::string> > & gantryOutputs);
+  int pathRestorationMethod(std::vector<std::pair<std::string, std::string> > & gantryOutputs);
 
-    bool extractNode(const ReadExcel & ,  std::string&,  std::string& , std::vector<RuntimeNode> *);
+  bool extractNode(const Graph & ,  std::string&,  std::string& , std::vector<RuntimeNode> *);
 };
 
 

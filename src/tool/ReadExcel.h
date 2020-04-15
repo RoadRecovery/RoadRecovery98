@@ -12,6 +12,7 @@ class ReadExcel {
 
 public:
 
+    std::string csvDir;
     Graph graph;
 
     ReadExcel();

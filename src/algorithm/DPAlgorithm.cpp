@@ -147,19 +147,19 @@ void DPAlgorithm::execute(Graph &graph, RuntimePath &originalPath,
 //  answerPath.print("in DP");
 }
 
-double DPAlgorithm::distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode> & nodeVector, int i, int j) {
+double DPAlgorithm::distanceFromNodesToNodes(Graph &graph, std::vector<RuntimeNode> &runtimeNodeVector, int i, int j) {
   long ret = 0;
-  RuntimeNode nodeI = nodeVector.at(i);
-  RuntimeNode nodeJ = nodeVector.at(j);
+  RuntimeNode nodeI = runtimeNodeVector.at(i);
+  RuntimeNode nodeJ = runtimeNodeVector.at(j);
   for (int k = i + 1; k < j; ++k) {
     long dis = -1;
-    RuntimeNode nodeK = nodeVector.at(k);
+    RuntimeNode nodeK = runtimeNodeVector.at(k);
     Path path = graph.getShortestPath(nodeI.node, nodeK.node);
     if (!path.nodeVector.empty()) dis = path.getLength();
     path = graph.getShortestPath(nodeK.node, nodeJ.node);
     if (!path.nodeVector.empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
     if (nodeK.node.mutualNodePtr != NULL) {
-      nodeK.node = *nodeK.node.mutualNodePtr;
+      nodeK.node = Node(*nodeK.node.mutualNodePtr);
       nodeK.transTime.clear();
       path = graph.getShortestPath(nodeI.node, nodeK.node);
       if (!path.nodeVector.empty() && (dis == -1 || path.getLength() < dis)) dis = path.getLength();
