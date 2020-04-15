@@ -45,15 +45,19 @@ if (GTEST)
     #target_link_libraries(test gtest_main)
     #add_test(NAME example_test COMMAND test)
 
+    # For customized command
+
+
 else()
     set(cmake_cxx_standard 98)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g -O -pedantic-errors -std=c++98")
+
+    add_subdirectory(src)
+
+    include_directories(src)
 endif()
 
-add_subdirectory(src)
-#add_subdirectory(test)
 
-include_directories(src)
 
 
 
