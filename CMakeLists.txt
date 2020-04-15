@@ -52,15 +52,37 @@ if (GTEST)
     add_subdirectory(src/entity)
     add_subdirectory(src/tool)
 
+    # Typically you don't care so much for a third party library's tests to be
+    # run from your own project's code.
+    set(JSON_BuildTests OFF CACHE INTERNAL "")
+
+    # If you only include this third party in PRIVATE source files, you do not
+    # need to install it when your main project gets installed.
+    # set(JSON_Install OFF CACHE INTERNAL "")
+    include_directories(test/json/include)
+
+    # Don't use include(nlohmann_json/CMakeLists.txt) since that carries with it
+    # unintended consequences that will break the build.  It's generally
+    # discouraged (although not necessarily well documented as such) to use
+    # include(...) for pulling in other CMake projects anyways.
+    add_subdirectory(test/json)
+
     add_executable(RRTest test/PathRestorationTest.cpp)
-    target_link_libraries(RRTest gtest_main core)
+    target_link_libraries(RRTest gtest_main core nlohmann_json::nlohmann_json)
     add_test(NAME RRTestRun COMMAND RRTest)
 
 else()
     set(cmake_cxx_standard 98)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g -O -pedantic-errors -std=c++98")
 
-    add_subdirectory(src)
+    add_subdirectory(src/algorithm)
+    add_subdirectory(src/core)
+    add_subdirectory(src/entity)
+    add_subdirectory(src/tool)
+
+    add_executable(main src/main.cpp)
+
+    target_link_libraries(main core)
 
     include_directories(src)
 endif()

@@ -47,5 +47,6 @@ _deps
 # idea
 .idea/
 cmake-build-debug/
+test/json/
 
 .DS_Store

@@ -5,6 +5,7 @@
 #include "../src/core/PathRestoration.h"
 #include "gtest/gtest.h"
 #include <fstream>
+#include "nlohmann/json.hpp"
 
 std::string inputPath = "../inputs/test-data-with-oracle-20200327.txt";
 
