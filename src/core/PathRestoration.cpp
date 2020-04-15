@@ -38,12 +38,12 @@ PathRestoration::PathRestoration(
 int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, std::string> > & gantryOutputs) {
 
   if (!readExcel.graph.built) {
-      std::cout << "read graph init." << std::endl;
+//      std::cout << "read graph init." << std::endl;
       readExcel.buildGraph(basicDataPath);
-      std::cout << "read graph done." << std::endl;
+//      std::cout << "read graph done." << std::endl;
   }
   else {
-      std::cout << "graph has already built." << std::endl;
+//      std::cout << "graph has already built." << std::endl;
   }
 
   std::vector<double> configs;
@@ -83,11 +83,11 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
 
 
   //core functionality
-  std::cout << "init DP" << std::endl;
+//  std::cout << "init DP" << std::endl;
   DPAlgorithm algorithm = DPAlgorithm(runtimePath.runtimeNodeVector.size());
   RuntimePath answerPath;
   algorithm.execute(readExcel.graph, runtimePath, configs, answerPath);
-  std::cout << "DP done" << std::endl;
+//  std::cout << "DP done" << std::endl;
   answerPath.print("recovered path");
 
   //TODO: handle the recovered path and dump into gantry outputs

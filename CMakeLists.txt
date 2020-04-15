@@ -6,7 +6,7 @@ set(GTEST true)
 
 if (GTEST)
     set(cmake_cxx_standard 11)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g -O")
+#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g -O")
 
     # Download and unpack googletest at configure time
 #    configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
