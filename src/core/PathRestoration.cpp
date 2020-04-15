@@ -6,6 +6,7 @@
 #include "../algorithm/DPAlgorithm.h"
 #include <algorithm>
 #include <iostream>
+#include <string>
 
 ReadExcel PathRestoration::readExcel = ReadExcel();
 
@@ -67,14 +68,14 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
       std::string secondStr = iter->second;
       if (!extractNode(readExcel.graph, firstStr, secondStr, &runtimeNodeVector)) {
           //no gantry node
-          return -1;
+          return -2;
       }
   }
 
   //end node
   if (!extractNode(readExcel.graph, exStationId, exTime, &runtimeNodeVector)) {
       //no exit node.
-      return -1;
+      return -3;
   }
 
   RuntimePath runtimePath = RuntimePath(runtimeNodeVector);
@@ -88,8 +89,25 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
   RuntimePath answerPath;
   algorithm.execute(readExcel.graph, runtimePath, configs, answerPath);
 //  std::cout << "DP done" << std::endl;
-  answerPath.print("recovered path");
+//  answerPath.print("recovered path");
 
+  for (int i = 0; i < answerPath.runtimeNodeVector.size(); i++) {
+    int source;
+    switch (answerPath.runtimeNodeVector[i].node.source) {
+    case IDENTIFY:
+      source = 0; break;
+    case ADD:
+      source = 1; break;
+    case MODIFY:
+      source = 2; break;
+    case DELETE:
+      source = 3; break;
+    }
+
+    gantryOutputs.push_back(std::make_pair(
+        answerPath.runtimeNodeVector[i].node.index,
+        std::to_string(source)));
+  }
   //TODO: handle the recovered path and dump into gantry outputs
 
 

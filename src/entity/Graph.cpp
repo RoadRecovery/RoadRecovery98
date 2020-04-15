@@ -81,6 +81,6 @@ void Graph::buildAllShortestPath() {
       }
     }
   }
-  std::cout << "build shortest path done." << std::endl;
+//  std::cout << "build shortest path done." << std::endl;
 }
 

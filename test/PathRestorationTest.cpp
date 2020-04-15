@@ -16,6 +16,7 @@ TEST(PathRestorationTestSuite, RegressionTest) {
   int testCaseCnt = 0;
   while (infile >> json) {
     testCaseCnt++;
+    std::cout << "Index = " << testCaseCnt << std::endl;
 
     auto enStationId = json["enStationId"].get<std::string>();
     auto enTime = json["enTime"].get<std::string>();
@@ -45,7 +46,20 @@ TEST(PathRestorationTestSuite, RegressionTest) {
     std::vector<std::pair<std::string, std::string> > gantryOutputs;
     pathRestoration.pathRestorationMethod(gantryOutputs);
 
-    break;
+    std::string retResult;
+    int count = 0;
+    for (auto & pair : gantryOutputs) {
+      if (count++ > 0) retResult.append("|");
+      retResult.append(pair.first);
+    }
+
+    auto manualResult = json["manualResult"].get<std::string>();
+
+//    std::cout << "ret: " << retResult << std::endl;
+//    std::cout << "man: " << manualResult << std::endl;
+
+    EXPECT_EQ(manualResult, retResult) << "testCase Index = " << testCaseCnt;
+//    break;
   }
 }
 
