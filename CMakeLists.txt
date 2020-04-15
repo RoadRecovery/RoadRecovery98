@@ -47,10 +47,13 @@ if (GTEST)
 
     # For customized command
     add_subdirectory(test)
-#    add_subdirectory(src)
+    add_subdirectory(src/algorithm)
+    add_subdirectory(src/core)
+    add_subdirectory(src/entity)
+    add_subdirectory(src/tool)
 
     add_executable(RRTest test/PathRestorationTest.cpp)
-    target_link_libraries(RRTest gtest_main)
+    target_link_libraries(RRTest gtest_main core)
     add_test(NAME RRTestRun COMMAND RRTest)
 
 else()
