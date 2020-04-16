@@ -4,9 +4,9 @@
 
 ## GTest library
 
-For the first building GTest, you have to uncomment a sequence of CMake commands between ###### uncomment begin and ###### uncomment end. 
+For the first building, you have to uncomment a sequence of CMake commands between `###### uncomment` begin and `###### uncomment end`. 
 
-For the later building and testing, you can comment these commands for speed.
+For the later building and testing, you can comment these commands for high speed.
 
 ## JSON library
 
