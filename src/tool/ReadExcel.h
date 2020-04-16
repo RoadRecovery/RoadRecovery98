@@ -17,9 +17,9 @@ public:
 
     ReadExcel();
 
-    Graph & buildGraph(const std::string & csvDir);
+    Graph & buildGraph(const std::string &, const std::string &, const std::string &);
 
-    void readFromCSVFile(const std::string &dir, const std::string &fileName, int i);
+    void readFromCSVFile(const std::string &, int i);
 
     void addEdgeFromLine(const std::string& lineStr, int flag);
 

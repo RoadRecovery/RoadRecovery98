@@ -13,17 +13,17 @@ ReadExcel::ReadExcel() {
     graph = Graph();
 }
 
-Graph & ReadExcel::buildGraph(const std::string & csvDir) {
+Graph & ReadExcel::buildGraph(const std::string & edgePath, const std::string & mutualPath, const std::string & mileagePath) {
     //build graph from 3 csv files
     //edge.csv, mutual.csv, and mileage.csv
-    readFromCSVFile(csvDir, "edge.csv", 1);
-    readFromCSVFile(csvDir, "mutual.csv", 2);
+    readFromCSVFile(edgePath, 1);
+    readFromCSVFile(mutualPath, 2);
 
     //init
     for (int i = 0; i < graph.nodeVector.size(); i++)
       if (graph.nodeVector[i].type == TOLLSTATION)
         graph.nodeVector[i].mileage = 0;
-    readFromCSVFile(csvDir, "mileage.csv", 3);
+    readFromCSVFile(mileagePath, 3);
 
     std::cout << "nodes in graph = " << graph.nodeVector.size() <<
         "; edges in graph = " << graph.edgeVector.size() << std::endl;
@@ -31,12 +31,11 @@ Graph & ReadExcel::buildGraph(const std::string & csvDir) {
     return graph;
 }
 
-void ReadExcel::readFromCSVFile(const std::string &dir, const std::string &fileName, int flag) {
+void ReadExcel::readFromCSVFile(const std::string &filePath, int flag) {
     std::ifstream inputFileStream;
     std::string line;
 
     //FIXME: file separator is incompatible with Windows
-    std::string filePath = dir + "/" + fileName;
     inputFileStream.open(filePath.c_str());
 
     bool firstLine = true;

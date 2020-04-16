@@ -7,7 +7,7 @@
 #include <fstream>
 #include "nlohmann/json.hpp"
 
-std::string inputPath = "../inputs/test-data-with-oracle-20200327.txt";
+std::string inputPath = "../testcases/test-data-with-oracle-20200327.txt";
 
 TEST(PathRestorationTestSuite, RegressionTest) {
   std::ifstream infile(inputPath);
@@ -22,7 +22,10 @@ TEST(PathRestorationTestSuite, RegressionTest) {
     auto enTime = json["enTime"].get<std::string>();
     auto exStationId = json["exStationId"].get<std::string>();
     auto exTime = json["exTime"].get<std::string>();
-    auto basicDataPath = std::string("/home/lida/Desktop/RoadRecovery98/inputs");
+
+    auto edgePath = std::string("/home/lida/Desktop/RoadRecovery98/inputs/edge.csv");
+    auto mutualPath = std::string("/home/lida/Desktop/RoadRecovery98/inputs/mutual.csv");
+    auto mileagePath = std::string("/home/lida/Desktop/RoadRecovery98/inputs/mileage.csv");
 
     auto modifyCost = json["modifyCost"].get<double>();
     auto addCost = json["addCost"].get<double>();
@@ -39,7 +42,8 @@ TEST(PathRestorationTestSuite, RegressionTest) {
     }
 
     PathRestoration pathRestoration = PathRestoration(
-        enStationId,enTime,exStationId,exTime,basicDataPath,
+        enStationId,enTime,exStationId,exTime,
+        edgePath, mutualPath, mileagePath,
         modifyCost,addCost,deleteCost,deleteCost2,deleteEndCost,
         gantryInputs);
 

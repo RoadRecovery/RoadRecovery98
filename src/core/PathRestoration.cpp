@@ -44,7 +44,7 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
 
   if (!readExcel.graph.built) {
 //      std::cout << "read graph init." << std::endl;
-      readExcel.buildGraph(basicDataPath);
+      readExcel.buildGraph(edgePath, mutualPath, mileagePath);
 //      std::cout << "read graph done." << std::endl;
   }
   else {

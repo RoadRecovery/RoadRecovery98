@@ -9,6 +9,7 @@ if (GTEST)
 #    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -g -O")
 
     # Download and unpack googletest at configure time
+    ###### uncomment begin
 #    configure_file(CMakeLists.txt.in googletest-download/CMakeLists.txt)
 #    execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
 #                    RESULT_VARIABLE result
@@ -22,6 +23,7 @@ if (GTEST)
 #    if(result)
 #        message(FATAL_ERROR "Build step for googletest failed: ${result}")
 #    endif()
+    ###### uncomment end
 
     # Prevent overriding the parent project's compiler/linker
     # settings on Windows
