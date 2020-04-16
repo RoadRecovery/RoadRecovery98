@@ -1,5 +1,7 @@
 # Building Process
 
+测试时，将 CMake 变量 GTest 改为 True，发布给第三方时，将其改为 False。
+
 测试部分采用 C++11 标准，构建系统使用 CMake，使用 GTest 和 JSON 库。
 
 ## GTest library
