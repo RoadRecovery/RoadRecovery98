@@ -48,5 +48,6 @@ _deps
 .idea/
 cmake-build-debug/
 test/json/
+*.zip
 
 .DS_Store
