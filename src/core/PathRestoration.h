@@ -23,7 +23,9 @@ public:
   std::string & exStationId;
   std::string & enTime;
   std::string & exTime;
-  std::string & basicDataPath;
+  std::string & edgePath;
+  std::string & mutualPath;
+  std::string & mileagePath;
 
   const std::vector<std::pair<std::string, std::string> > & gantryInputs;
 
@@ -34,7 +36,9 @@ public:
           std::string & enTime,
           std::string & exStationId,
           std::string & exTime,
-          std::string & basicDataPath,
+          std::string & edgePath,
+          std::string & mutualPath,
+          std::string & mileagePath,
           double modifyCost,
           double addCost,
           double deleteCost,
