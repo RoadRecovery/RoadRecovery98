@@ -47,7 +47,7 @@ TEST(PathRestorationTestSuite, RegressionTest) {
         modifyCost,addCost,deleteCost,deleteCost2,deleteEndCost,
         gantryInputs);
 
-    std::vector<std::pair<std::string, std::string> > gantryOutputs;
+    std::vector<std::pair<std::string, int> > gantryOutputs;
     pathRestoration.pathRestorationMethod(gantryOutputs);
 
     std::string retResult;

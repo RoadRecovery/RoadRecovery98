@@ -40,7 +40,8 @@ PathRestoration::PathRestoration(
         {
         }
 
-int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, std::string> > & gantryOutputs) {
+int PathRestoration::pathRestorationMethod(
+    std::vector<std::pair<std::string, int> > &gantryOutputs) {
 
   if (!readExcel.graph.built) {
 //      std::cout << "read graph init." << std::endl;
@@ -96,7 +97,7 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
 //  answerPath.print("recovered path");
 
   for (int i = 0; i < answerPath.runtimeNodeVector.size(); i++) {
-    int source;
+    int source = 0;
     switch (answerPath.runtimeNodeVector[i].node.source) {
     case IDENTIFY:
       source = 0; break;
@@ -109,8 +110,7 @@ int PathRestoration::pathRestorationMethod(std::vector<std::pair<std::string, st
     }
 
     gantryOutputs.push_back(std::make_pair(
-        answerPath.runtimeNodeVector[i].node.index,
-        std::to_string(source)));
+        answerPath.runtimeNodeVector[i].node.index, source));
   }
   //TODO: handle the recovered path and dump into gantry outputs
 

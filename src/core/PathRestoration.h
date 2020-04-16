@@ -47,7 +47,7 @@ public:
           const std::vector<std::pair<std::string, std::string> > & gantryInputs
       );
 
-  int pathRestorationMethod(std::vector<std::pair<std::string, std::string> > & gantryOutputs);
+  int pathRestorationMethod(std::vector<std::pair<std::string, int> > &gantryOutputs);
 
   bool extractNode(const Graph & ,  std::string&,  std::string& , std::vector<RuntimeNode> *);
 };

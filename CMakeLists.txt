@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.15)
 project(RoadRecovery98)
 
 # for testing and release, respectively
-set(GTEST true)
+set(GTEST false)
 
 if (GTEST)
     set(cmake_cxx_standard 11)
@@ -81,10 +81,6 @@ else()
     add_subdirectory(src/core)
     add_subdirectory(src/entity)
     add_subdirectory(src/tool)
-
-    add_executable(main src/main.cpp)
-
-    target_link_libraries(main core)
 
     include_directories(src)
 endif()
